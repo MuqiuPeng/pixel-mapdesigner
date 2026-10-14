@@ -71,6 +71,10 @@ python dem/fetch.py
 
 数据来自 [Terrain Tiles](https://registry.opendata.aws/terrain-tiles/)（Mapzen terrarium 编码，托管于 AWS Open Data）。署名要求见 `dem/sources.json` 和 <https://github.com/tilezen/joerd/blob/master/docs/attribution.md>。
 
+## 给 Claude Code 用的像素画技能
+
+`.claude/skills/pixel-art/` 是一个 Claude Code 技能：教它怎么用 `pixelkit.py` 画像素素材（先剪影、再按色阶从左上打光、预览后检查、按调色板校验），附一份常见问题的修补手册。在这个仓库里用 Claude Code 时，让它画树、石头、地面图块之类，它会按这个流程来。
+
 ## 文件
 
 | 文件 | 内容 |
