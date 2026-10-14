@@ -61,8 +61,10 @@ def _shift(a, oy, ox, fill=False):
     return out
 
 
-def _image(idx, names, P):
-    """Index grid (0 transparent, 1.. into `names`) to an image."""
+def _image(idx, names, P, margin=2):
+    """Index grid (0 transparent, 1.. into `names`) to an image, with `margin` clear pixels at
+    either side: a swaying crown needs room to lean into."""
+    idx = np.pad(idx, ((0, 0), (margin, margin)), constant_values=T)
     h, w = idx.shape
     rgba = np.zeros((h, w, 4), dtype=np.uint8)
     for i, n in enumerate(names, start=1):

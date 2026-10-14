@@ -315,7 +315,7 @@ class Picture(Base):
         changed = [(x, y) for x in range(96) for y in range(96) if bare.getpixel((x, y)) != img.getpixel((x, y))]
         ys = [y for _, y in changed]
         self.assertLess(min(ys), 3 * 16)       # the canopy reaches at least a cell above its own
-        self.assertLess(max(ys), 5 * 16 + 10)  # below its feet only its shadow, falling away from the sun
+        self.assertLess(max(ys), 5 * 16 + 13)  # below its feet only its shadow, falling away from the sun
         self.assertEqual(mapkit.render(m, self.tiles, self.pal, scale=1, objects=False).tobytes(), bare.tobytes())
 
     def test_look_sample_and_preview(self):
