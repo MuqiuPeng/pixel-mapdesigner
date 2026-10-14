@@ -88,25 +88,27 @@ def create_map(a):
 
 
 @tool("generate_map",
-      "按地理规律生成一张地图，而不是手画。谷地的地形取自真实世界的实测高程（dem/ 里的真实沿海谷地），在它上面推演："
-      "雨水顺坡汇成溪与河；河段越陡留下的越粗（陡段卵石、中段沙、缓段与河口是泥）；平缓的海岸积沙、陡岸成崖；"
-      "潮湿背风土厚处成林，偏干或迎海风处是草甸，太陡留不住土处露岩。然后从谷地里切出一块，放大成一格一步的地图，"
-      "并给每格一个高度（全谷统一分级，0 是海）。返回这块地为什么长这样的说明和渲染图。只生成地表，不摆物件。",
+      "按地理规律生成一张地图，而不是手画。先推演整个谷地：构造抬升与河流下切相抗长出地形（地貌演化模型），雨水汇成溪与河，"
+      "河按流量定宽、在河漫滩上曲流、在硬岩处集中跌落；按岩性和迎浪程度生成海岸（海蚀平台、海蚀柱、卵石脊、沙嘴潟湖、盐沼）；"
+      "再算温度、湿度场，按表分出生物群系，由群系决定地表、植被（草、蕨、石南、芦苇……）和树。然后切出一块放大成一格一步的地图，"
+      "每格带高度、植被和群系，并保证整张走得通。给 design 则按 designs/<名>.json 的设计生成整张（place 取 whole）。"
+      "返回这块地为什么长这样的说明和渲染图。",
       {"name": MAP, "width": INT, "height": INT,
        "place": {"description": "切哪里：" + "、".join(f"{k}（{v}）" for k, v in __import__("geo").PLACES.items())
-                                + "；或 [x, y] 谷地格坐标（谷地 128×96）。默认 river"},
-       "valley": {"type": "string", "description": "不填则按地貌演化生成地形；填真实谷地名则用其实测高程作对照：" + "；".join(
+                                + "；或 [x, y] 谷地格坐标（谷地 128×96）；用设计时填 whole。默认 river"},
+       "design": {"type": "string", "description": "设计文件名（designs/ 下，不带 .json），按设计生成整张；此时 width/height 由设计决定"},
+       "valley": {"type": "string", "description": "不填则按地貌演化生成地形；填真实谷地名则用其实测高程作对照（需先运行 dem/fetch.py）：" + "；".join(
            f"{k}＝{v['name']}（{v['about']}）" for k, v in __import__("geo").sources().items())},
        "climate": {"type": "string", "enum": list(__import__("geo").CLIMATES),
-                   "description": "气候决定溪流多少、土层厚薄、长什么：" + "；".join(
+                   "description": "气候决定溪流多少、土层厚薄、雪线高低、群系分布：" + "；".join(
                        f"{k}＝{v['name']}" for k, v in __import__("geo").CLIMATES.items()) + "。默认 oceanic"},
-       "seed": {"type": "integer", "description": "奇数取谷地的镜像；也影响细部。默认 2"}},
+       "seed": {"type": "integer", "description": "随机种子：不同的种子长出不同的谷地。默认 2"}},
       ("name", "width", "height"))
 def generate_map(a):
     import geo
-    at = a.get("place", "river")
+    at = a.get("place", "whole" if a.get("design") else "river")
     out = geo.make_map(PROJECT, a["name"], a["width"], a["height"], int(a.get("seed", 2)), a.get("climate", "oceanic"),
-                       tuple(at) if isinstance(at, list) else at, a.get("valley") or None)
+                       tuple(at) if isinstance(at, list) else at, a.get("valley") or None, a.get("design") or None)
     m = PROJECT.load_map(a["name"])
     img = mapkit.render(m, PROJECT.tiles(), PROJECT.palette(), 2)
     return [{"type": "text", "text": f"已生成 {m.name}（{m.width}×{m.height}）。\n" + "\n".join("- " + line for line in out["report"])},
