@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>地图设计器</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <strong>地图设计器</strong>
+  <select id="mapSel" title="当前地图"></select>
+  <button id="newMap">新建</button>
+  <button id="resizeMap">尺寸</button>
+  <button id="delMap">删除</button>
+  <span class="sep"></span>
+  <button id="undo" title="Ctrl+Z">撤销</button>
+  <button id="redo" title="Ctrl+Y">重做</button>
+  <span class="sep"></span>
+  <button id="validate">检查</button>
+  <button id="png">导出 PNG</button>
+  <button id="export" title="写出 export/tiles.png、tiles.json 和每张地图烘焙好的地面">导出</button>
+  <span class="grow"></span>
+  <span id="sync">…</span>
+</header>
+<main>
+  <aside>
+    <div id="tools">
+      <button data-tool="brush" title="画笔 (B)">画笔</button>
+      <button data-tool="erase" title="橡皮 (E)：先擦物件，没有物件再擦地面">橡皮</button>
+      <button data-tool="rect" title="矩形 (R)：拖出矩形填充；按住 Shift 是清空">矩形</button>
+      <button data-tool="fill" title="油漆桶 (F)">填充</button>
+      <button data-tool="pick" title="吸取 (I)，或任何工具下按住 Alt 点击">吸取</button>
+    </div>
+    <div class="seg" id="views" title="切换 (V)">
+      <button data-view="whole" title="整张地图缩到窗口里，静态">全图</button>
+      <button data-view="walk" title="按游戏里的大小看；WASD 平移，不能缩放；只画看得到的部分">行走比例</button>
+    </div>
+    <label class="check"><input type="checkbox" id="grid"> 显示格线 (G)</label>
+    <label class="check" id="playRow"><input type="checkbox" id="play" checked> 播放动画 (P，行走比例下)</label>
+    <label class="check" title="按地理规律生成的地图带高度；每条线是一级"><input type="checkbox" id="contours"> 显示等高线 (H)</label>
+    <h3>地面材质 <button class="mini" data-new="ground">＋</button></h3>
+    <div class="tiles" id="tiles-ground"></div>
+    <h3 title="长在地面上、可以割、可以踩倒、可以藏身的东西；和地面、物件各占一层">植被 <button class="mini" data-new="plant">＋</button></h3>
+    <div class="tiles" id="tiles-plant"></div>
+    <h3>物件 <button class="mini" data-new="object">＋</button></h3>
+    <div class="tiles" id="tiles-object"></div>
+    <p class="hint">双击图块编辑。V 切换全图 / 行走比例；行走比例下 WASD（或右键、空格拖动）平移。<br>地面按材质连续绘制：下笔先显示色块，随后换成成品画面。</p>
+  </aside>
+  <section id="stage"><canvas id="map"></canvas></section>
+</main>
+<footer id="status">&nbsp;</footer>
+
+<dialog id="spriteDlg">
+  <form method="dialog">
+    <h2 id="spriteTitle">物件</h2>
+    <div class="cols">
+      <div>
+        <div id="pxWrap"><canvas id="px" width="320" height="320"></canvas></div>
+        <div class="row">
+          <button type="button" data-ptool="pen">铅笔</button>
+          <button type="button" data-ptool="erase">橡皮</button>
+          <button type="button" data-ptool="fill">填充</button>
+          <button type="button" data-ptool="pick">吸取</button>
+          <span class="grow"></span>
+          <button type="button" id="pxUndo">撤销</button>
+          <button type="button" id="pxClear">清空</button>
+        </div>
+        <div class="row">
+          <button type="button" data-shift="-1,0">←</button>
+          <button type="button" data-shift="0,-1">↑</button>
+          <button type="button" data-shift="0,1">↓</button>
+          <button type="button" data-shift="1,0">→</button>
+          <button type="button" id="mirror">镜像</button>
+          <button type="button" id="outline" title="pixelkit.outline：给形状描一圈当前颜色">描边</button>
+          <select id="gRamp" title="色阶"></select>
+          <button type="button" id="genBlob" title="pixelkit 的明暗分层椭圆，叠加在现有像素上">加团块</button>
+        </div>
+      </div>
+      <div class="side">
+        <div class="row"><label>id <input id="tId" maxlength="32"></label>
+          <label>名字 <input id="tName" maxlength="20"></label></div>
+        <div class="row">
+          <label>通行 <select id="tPass"><option value="walk">可走</option><option value="swim">涉水</option><option value="block">阻挡</option></select></label>
+          <label>标签 <input id="tTags" placeholder="resource, wood"></label>
+        </div>
+        <div class="row">
+          <label>宽 <input id="sW" type="number" min="1" max="64"></label>
+          <label>高 <input id="sH" type="number" min="1" max="64"></label>
+          <button type="button" id="sResize" title="以底边中点为锚点改变画布大小">改画布</button>
+        </div>
+        <div class="row">
+          <label>变体 <select id="vSel"></select></label>
+          <button type="button" id="vAdd" title="复制当前这张作为新变体；地图上每格按位置挑一张">＋</button>
+          <button type="button" id="vDel">－</button>
+        </div>
+        <div class="row">
+          <label><input type="checkbox" id="tShadow"> 投影</label>
+          <label><input type="checkbox" id="tFlip"> 随机镜像</label>
+          <label title="每格位置的随机偏移，像素">偏移 <input id="tJitter" type="number" min="0" max="6" value="0"></label>
+        </div>
+        <div class="row">
+          <label title="物件立在前沿正中那一格，向两侧和后方占地；通行为「阻挡」时这些格子都走不过去">占地 宽 <input id="tFw" type="number" min="1" max="8" value="1"></label>
+          <label>深 <input id="tFh" type="number" min="1" max="8" value="1"></label>
+          <span class="label">格</span>
+          <label title="动画由这一张图推出来：摆动是上半部左右摆（树、草），抖动是顶部晃（火），起伏是身体上下一像素（人、兽）">动作 <select id="tMotion">
+            <option value="none">不动</option><option value="sway">摆动</option><option value="flicker">抖动</option><option value="bob">起伏</option><option value="gust">随风倒伏</option></select></label>
+        </div>
+        <div class="label">调色板 <span id="curColor"></span></div>
+        <div id="swatches"></div>
+        <div class="row preview">
+          <canvas id="pv1" width="16" height="16" title="1× 原大"></canvas>
+          <canvas id="pvMove" width="16" height="16" title="动起来的样子（2×）"></canvas>
+          <ul id="problems"></ul>
+        </div>
+      </div>
+    </div>
+    <div class="row end">
+      <button type="button" id="tDelete" class="danger">删除图块</button>
+      <span class="grow"></span>
+      <button type="button" id="tCancel">取消</button>
+      <button type="button" id="tSave" class="primary">保存</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog id="lookDlg">
+  <form method="dialog">
+    <h2 id="lookTitle">地面材质</h2>
+    <div class="cols">
+      <div class="side wide">
+        <div class="row"><label>id <input id="lId" maxlength="32"></label>
+          <label>名字 <input id="lName" maxlength="20"></label></div>
+        <div class="row">
+          <label>通行 <select id="lPass"><option value="walk">可走</option><option value="swim">涉水</option><option value="block">阻挡</option></select></label>
+          <label title="层级高的材质压在层级低的上面">层级 <input id="lRank" type="number" min="0" max="99"></label>
+          <label>标签 <input id="lTags" placeholder="land"></label>
+        </div>
+        <div class="row"><label>底色 <span id="lBase"></span></label>
+          <label title="压在低层级材质上时的边缘颜色">边缘 <span id="lRim"></span></label></div>
+        <h4>色斑 <button type="button" class="mini" id="lAddPatch">＋</button></h4>
+        <div id="lPatches"></div>
+        <h4>细节点 <button type="button" class="mini" id="lAddSpeck">＋</button></h4>
+        <div id="lSpecks"></div>
+        <h4 title="靠近边界的内侧怎么变：沙近水变深，林地边缘一圈深影">内缘（与低层级相接处的内侧） <button type="button" class="mini" id="lAddEdge">＋</button></h4>
+        <div id="lEdge"></div>
+        <h4 title="往相邻的低层级地形上洒什么：草稀到沙上，岩台脚下落碎石">外溢（洒到相邻的低层级上） <button type="button" class="mini" id="lAddApron">＋</button></h4>
+        <div id="lApron"></div>
+        <h4>点缀物件 <button type="button" class="mini" id="lAddDecor">＋</button></h4>
+        <div id="lDecor"></div>
+        <label title="南侧落下的崖面，每个颜色一行像素，自上而下">崖壁颜色 <input id="lCliff" placeholder="s1, s1, s0, n0"></label>
+        <div class="row">
+          <label title="只对这些材质落崖；留空是所有低层级材质">只压在 <input id="lCliffOver" placeholder="water"></label>
+          <label><input type="checkbox" id="lCracks"> 裂纹</label>
+        </div>
+        <label title="挨着高层级材质的内侧色带，从近到远，每个颜色 1 像素">岸线色带 <input id="lShore" placeholder="b3, b2, b2"></label>
+        <label title="最近的两条色带来回换位，像水拍岸"><input type="checkbox" id="lLap"> 岸线拍动</label>
+        <div class="row" title="海浪：一道浪花涌来，冲上岸，退回去，沙留下一片湿痕">
+          <label>海浪 浪花 <span id="lSurfFoam"></span></label>
+          <label>水色 <span id="lSurfWater"></span></label>
+          <label>冲上岸 <input id="lSurfReach" type="number" min="2" max="14" value="8"> 像素</label>
+        </div>
+        <label title="海浪只冲上这些地形；留空是所有高层级地形">海浪冲上 <input id="lSurfOnto" placeholder="sand, gravel, mud"></label>
+        <label title="活水：有流向，朝它连通的地形（海）流；不通到哪里的（池塘）不流"><input type="checkbox" id="lFlows"> 活水（有流向）</label>
+        <label title="和这些地形相接时不画任何边界：河汇入海的地方没有岸线、没有浪。两边有一边写了就行">连通（不画边界） <input id="lJoins" placeholder="sea"></label>
+      </div>
+      <div>
+        <canvas id="lPreview" width="288" height="288"></canvas>
+        <p class="hint" id="lNote">预览：这种材质与相邻层级材质相接时的样子。</p>
+      </div>
+    </div>
+    <div class="row end">
+      <button type="button" id="lDelete" class="danger">删除图块</button>
+      <span class="grow"></span>
+      <button type="button" id="lCancel">取消</button>
+      <button type="button" id="lSave" class="primary">保存</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog id="mapDlg">
+  <form method="dialog">
+    <h2 id="mapTitle">新建地图</h2>
+    <label id="mNameRow">名字 <input id="mName" maxlength="40"></label>
+    <label id="mHowRow">方式 <select id="mHow"><option value="blank">空白地图</option><option value="geo">按地理规律生成</option></select></label>
+    <div id="mGeo">
+      <label title="默认按地貌演化生成；也可换成真实谷地的实测高程作对照">地形 <select id="mValley"></select></label>
+      <label title="决定溪流多少、土层厚薄、长什么">气候 <select id="mClimate"></select></label>
+      <label title="从谷地里切哪一块">切哪里 <select id="mPlace"></select></label>
+      <label title="奇数取谷地的镜像；也影响细部">种子 <input id="mSeed" type="number" value="2" min="0" max="9999"></label>
+    </div>
+    <div class="row">
+      <label>宽 <input id="mW" type="number" min="1" max="512" value="40"></label>
+      <label>高 <input id="mH" type="number" min="1" max="512" value="28"></label>
+    </div>
+    <div class="row" id="mShiftRow">
+      <label>内容右移 <input id="mDx" type="number" value="0"></label>
+      <label>内容下移 <input id="mDy" type="number" value="0"></label>
+    </div>
+    <label id="mFillRow">地面填充 <select id="mFill"></select></label>
+    <div class="row end">
+      <span class="grow"></span>
+      <button type="button" id="mCancel">取消</button>
+      <button type="button" id="mOk" class="primary">确定</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog id="msgDlg">
+  <form method="dialog">
+    <h2 id="msgTitle"></h2>
+    <pre id="msgBody"></pre>
+    <div class="row end"><span class="grow"></span><button value="cancel" id="msgCancel">取消</button><button value="ok" class="primary">好</button></div>
+  </form>
+</dialog>
+<script src="app.js"></script>
+</body>
+</html>

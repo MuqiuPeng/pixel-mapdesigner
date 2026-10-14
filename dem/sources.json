@@ -1,0 +1,41 @@
+{
+ "note": "Real elevation windows used as valleys by geo.py. Heights in metres, north up, 192x144 cells. The sea is not taken from the data (it is unreliable there): geo.py lets the sea in from the south edge to a level of its own choosing, drowning the valley's mouth.",
+ "source": "Terrain Tiles (Mapzen terrarium), AWS Open Data: https://registry.opendata.aws/terrain-tiles/",
+ "attribution": "Elevation data: Mapzen Terrain Tiles and their sources (SRTM, EU-DEM, ArcticDEM and others); see https://github.com/tilezen/joerd/blob/master/docs/attribution.md",
+ "fetched": "2026-10-14",
+ "valleys": {
+  "glen_brittle": {
+   "name": "Glen Brittle（苏格兰斯凯岛）",
+   "lat": 57.205,
+   "lon": -6.29,
+   "cell_m": 41.4,
+   "climate": "oceanic",
+   "about": "三面是山、向南开口入海的冰蚀谷：宽平的谷底，陡峭的谷壁，河在谷底蜿蜒入海湾。"
+  },
+  "glen_etive": {
+   "name": "Glen Etive（苏格兰）",
+   "lat": 56.565,
+   "lon": -5.07,
+   "cell_m": 42.1,
+   "climate": "oceanic",
+   "about": "长而深的冰蚀谷，河注入狭长的海湾。"
+  },
+  "samaria": {
+   "name": "Samaria 峡谷出海口（克里特岛）",
+   "lat": 35.232,
+   "lon": 23.962,
+   "cell_m": 62.4,
+   "climate": "dry",
+   "about": "夏干气候下深切的峡谷，出口是卵石滩，几乎没有平地。"
+  },
+  "hornvik": {
+   "name": "Hornvík（冰岛）",
+   "lat": 66.425,
+   "lon": -22.48,
+   "cell_m": 30.6,
+   "climate": "cold",
+   "about": "亚寒带的冰蚀谷湾：谷底平而湿，两侧是崖。",
+   "turn": 2
+  }
+ }
+}

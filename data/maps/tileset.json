@@ -1,0 +1,4483 @@
+{
+ "cell": 16,
+ "tiles": [
+  {
+   "id": "tuft",
+   "name": "草丛",
+   "layer": "object",
+   "pass": "walk",
+   "tags": [
+    "decor"
+   ],
+   "variants": [
+    {
+     "rows": [
+      "a...a.",
+      ".a.a..",
+      ".bab.a",
+      "..b.b."
+     ],
+     "key": {
+      "a": "g4",
+      "b": "g1"
+     }
+    },
+    {
+     "rows": [
+      ".a..",
+      "a.a.",
+      ".ba.",
+      ".b.."
+     ],
+     "key": {
+      "a": "g3",
+      "b": "g1"
+     }
+    }
+   ],
+   "shadow": false,
+   "flip": true,
+   "jitter": 0,
+   "footprint": [
+    1,
+    1
+   ],
+   "motion": "gust"
+  },
+  {
+   "id": "flower",
+   "name": "野花",
+   "layer": "object",
+   "pass": "walk",
+   "tags": [
+    "decor"
+   ],
+   "variants": [
+    {
+     "rows": [
+      ".a.",
+      "aba",
+      ".a.",
+      ".c.",
+      ".c."
+     ],
+     "key": {
+      "a": "f0",
+      "b": "y1",
+      "c": "g1"
+     }
+    },
+    {
+     "rows": [
+      ".a.",
+      "aba",
+      ".a.",
+      ".c.",
+      ".c."
+     ],
+     "key": {
+      "a": "y2",
+      "b": "o1",
+      "c": "g1"
+     }
+    },
+    {
+     "rows": [
+      ".a.",
+      "aba",
+      ".a.",
+      ".c.",
+      ".c."
+     ],
+     "key": {
+      "a": "f0",
+      "b": "g4",
+      "c": "g1"
+     }
+    }
+   ],
+   "shadow": false,
+   "flip": true,
+   "jitter": 0,
+   "footprint": [
+    1,
+    1
+   ],
+   "motion": "gust"
+  },
+  {
+   "id": "fern",
+   "name": "蕨",
+   "layer": "object",
+   "pass": "walk",
+   "tags": [
+    "decor"
+   ],
+   "variants": [
+    {
+     "rows": [
+      "a...a",
+      ".a.a.",
+      "b.a.b",
+      ".bab.",
+      "..b.."
+     ],
+     "key": {
+      "a": "g2",
+      "b": "g0"
+     }
+    },
+    {
+     "rows": [
+      ".a.a.",
+      "..a..",
+      "b.a.b",
+      ".bbb."
+     ],
+     "key": {
+      "a": "g3",
+      "b": "g0"
+     }
+    }
+   ],
+   "shadow": false,
+   "flip": true,
+   "jitter": 0,
+   "footprint": [
+    1,
+    1
+   ],
+   "motion": "gust"
+  },
+  {
+   "id": "mushroom",
+   "name": "蘑菇",
+   "layer": "object",
+   "pass": "walk",
+   "tags": [
+    "decor"
+   ],
+   "variants": [
+    {
+     "rows": [
+      ".aa.",
+      "abaa",
+      ".cc.",
+      ".cc."
+     ],
+     "key": {
+      "a": "r1",
+      "b": "f0",
+      "c": "k2"
+     }
+    },
+    {
+     "rows": [
+      ".aa.",
+      "aaba",
+      ".c.."
+     ],
+     "key": {
+      "a": "o1",
+      "b": "y2",
+      "c": "k2"
+     }
+    }
+   ],
+   "shadow": false,
+   "flip": true,
+   "jitter": 0,
+   "footprint": [
+    1,
+    1
+   ],
+   "motion": "none"
+  },
+  {
+   "id": "pebble",
+   "name": "石子",
+   "layer": "object",
+   "pass": "walk",
+   "tags": [
+    "decor"
+   ],
+   "variants": [
+    {
+     "rows": [
+      ".aa.",
+      "abbc",
+      ".cc."
+     ],
+     "key": {
+      "a": "s4",
+      "b": "s3",
+      "c": "s1"
+     }
+    },
+    {
+     "rows": [
+      "ab",
+      "bc"
+     ],
+     "key": {
+      "a": "s3",
+      "b": "s2",
+      "c": "s1"
+     }
+    }
+   ],
+   "shadow": false,
+   "flip": true,
+   "jitter": 0,
+   "footprint": [
+    1,
+    1
+   ],
+   "motion": "none"
+  },
+  {
+   "id": "lily",
+   "name": "睡莲",
+   "layer": "object",
+   "pass": "walk",
+   "tags": [
+    "decor"
+   ],
+   "variants": [
+    {
+     "rows": [
+      ".aaa.",
+      "aabaa",
+      ".aa.."
+     ],
+     "key": {
+      "a": "g2",
+      "b": "g3"
+     }
+    },
+    {
+     "rows": [
+      ".aa.",
+      "abca",
+      ".aa."
+     ],
+     "key": {
+      "a": "g2",
+      "b": "f0",
+      "c": "g3"
+     }
+    }
+   ],
+   "shadow": false,
+   "flip": true,
+   "jitter": 0,
+   "footprint": [
+    1,
+    1
+   ],
+   "motion": "none"
+  },
+  {
+   "id": "tree",
+   "name": "树",
+   "layer": "object",
+   "pass": "block",
+   "tags": [
+    "resource",
+    "wood"
+   ],
+   "variants": [
+    {
+     "rows": [
+      "..................aa.aabcaa...............",
+      "................aabcacccccbaaa............",
+      "...............accccccddbbbbbcaa..........",
+      "..............abcddbbbdbbbcccccba.........",
+      ".............aabcdbbbbbbbbcccbbeba........",
+      "............acccccbbeebcbcccbbbebaa.......",
+      "..........aabcccbbbbcccccbbbebbbbbea......",
+      "........aabccccbbbbbcddbbbbbebbbeeeea.....",
+      ".......acccccbbbbbbccdbbbbbebbbeeeeebaa...",
+      "......abcddbbbbbcccccebbeeeabeeeebbbbbea..",
+      "....aabccdbbbbbbcccbbbbbeeeabeeeebbbeeeea.",
+      "...acccccebbbcccccbbbbbeeebaaeaebbbeeeeea.",
+      "..abcccbbbcccccbbbbbeeebbbbbeaaabeeeeaaaa.",
+      "..acccbbbccbcbbbbbbbbeebbbeeeeaabeeeeaaaa.",
+      "..acbbcccccbbbbbbbbbbbebbeeeeea.aeaeaaaa..",
+      "..acbbcddbbbbbeeebbbeeebbeeaaaaaebaaaaa...",
+      "...abccdbbbbbbeebbbebbbbbeeaaabbbbbeaa....",
+      "...aabccbbeeeaeebbbebbbeeeeaabbebeeeea....",
+      "..acccccbbeeeaebbbbbbeeeeebbbbbeeeeeeeaa..",
+      ".abcddbbbbeeaaebbbeeeeeeebbebeeeeeeeeeeaa.",
+      ".accdbbbbbeafabbbeeeeebbbbbeeeeeeeeeeaaaaa",
+      ".acbbbbeeebafabeeeeaaebbbeeeeeaaaeeeaaaaaa",
+      ".acbbbbbbbbbeabeeebaabbbeeeeeeaaaaeaaaaaaa",
+      "..abebbbbbeeeeabbbbbabeeeeaaaaaeeeeeaaaaaa",
+      "...aaabbbeeeeeebbbeeeeeeeeaaaaaeeeaaaaaaa.",
+      ".....abeebeaaabbbeeeeeeeeaaaeaeeeaaaaaaa..",
+      ".....abbbbbaaabeeeeaeeeeeeeeeeaaaaaaaaa...",
+      "....aebbbeeeeabeeeeaeeeaaeeeaaaaaaaaaaa...",
+      "....abbbeeeeeaaeeeeeeeaaeeeaaaaeaaaaaa....",
+      "....abeeeeaaeeeeeaaeaaeaeaaaeeeeeaaaa.....",
+      "....abeeeeaaeeeaaaaeeeeeaaaaeeeaaaaa......",
+      ".....aeaeaaeeeaaaaaeeeaaaaaeeeaaaaaa......",
+      "......aaaaaeaaaaaaeeeaaaaaaeaaaaaaaa......",
+      "..........aeaaaaaaeaaaaaaaaeaaaaaaaa......",
+      "...........aaaaaaaeaaaaaaaaaaaaaaaa.......",
+      "............aaaaaagaaaaaaa..aaaaaa........",
+      "................ahgiifhaa.......a.........",
+      ".................hgiifha..................",
+      ".................hgiifhh..................",
+      ".................hgiifhh..................",
+      ".................hgiifhh..................",
+      ".................hgiifhh..................",
+      ".................hgiifhh..................",
+      ".................hgiifhh..................",
+      ".................hgiifhh..................",
+      ".................hgiifhh..................",
+      ".................hgiifhh..................",
+      ".................hgiffhh..................",
+      ".................hgiffhh..................",
+      ".................hgiifhh..................",
+      ".................hgiifhh..................",
+      "................hggiiffhh.................",
+      "...............hggiiiffhhh................",
+      "................hhhhhhhhh................."
+     ],
+     "key": {
+      "a": "g0",
+      "b": "g2",
+      "c": "g3",
+      "d": "g4",
+      "e": "g1",
+      "f": "w0",
+      "g": "w2",
+      "h": "n0",
+      "i": "w1"
+     }
+    },
+    {
+     "rows": [
+      "...............a............a.............",
+      ".............aabaaa..a....aabaaa..........",
+      "............acccccbaabaaaacccccba.........",
+      "...........abcccbbbcccccbbcddbbbba........",
+      "...........acccbbbbcddbbbbcdbbbbba........",
+      "...........acbbbbbccdbbbbbbbebeeea........",
+      "...........acbbcccccebbeeeebebeeea........",
+      "........a...abbcddbbbbbeeebbbbbea.........",
+      "......aabaaa.accdbbbbbeeeebbbeeeea........",
+      ".....acccccbaacbbbbeeeaaabbbeeeeeaaaa.....",
+      "....abcddbbbbacbbbbeeeaaebeeeebbbbbeeaaa..",
+      "....accdbbbbbaabbbeeeabbbbbeeebbbebbbbbea.",
+      "....acbbbbeeeacccccbeebebeeeebbbeebbbeeeea",
+      "..aabcbcccccbbcddbbbbbbeeeeeebeeebbbeeeeea",
+      ".accccccddbbbbcdebbbbeeeeeaabbbbbeeeeeaaaa",
+      "abcddbbbdbbbbbbbbbbbeeeeeeaabbbeeeeeeeaaaa",
+      "accdbbbbbebeeeebbbbbbeaaaeabbbeeeeaaeaaaa.",
+      "acbbbbeeeebeeeeebbbeeeebbbbbeeeeeeeeeaaa..",
+      "acbbbbeeeeeeeaabbbeeeeebbbeeeeeeeeeaaaaa..",
+      ".abbbeeeeaaaa.abeeeeaabbbeeeeeeeeeaaaaaa..",
+      "..abeaaaaeaafaebeeeeaabeeeeaaaaeaaaaaaaa..",
+      "...aa.abbbbbbbbbbeeaaabeeeeaeeeeeaaaaaaa..",
+      ".....aebbbeebbbeeeebbbbbeeaaeeeaaaaaaaa...",
+      ".....abbbeebbbeeeeebbbeeeefeeeaaaeeeeeaa..",
+      ".....abeeeebeeeeaabbbeeeeaaeaaaaaeeeaaaaa.",
+      ".....abeeeebeeeeaabeeeeeeeeeaaaaeeeaaaaaa.",
+      "....abbbbbebbbbbeabeeeeeeeaaaeeeeeaaaaaaa.",
+      "...aebbbeeebbbeeeeeeaeeeeaaaaeeeaaaaaaaaa.",
+      "...abbbeeebbbaeeeeaaaaeaaaaaeeeaaaaaaaaa..",
+      "...abeeeeabeeeeeeaaaaaeaaaaaeaaaaaaaaaa...",
+      "...abeeeeabeeeaaaaaaaaeeeeeeaaaaaaaaa.....",
+      "....aeeeaaaeeeeeeaeeeeeaaeaaaaaaaaaa......",
+      ".....aeaaaaaeeeaaaaaeaaaaaaaaaaaaaa.......",
+      "......aa..aeeeaaaaaaaaaaaaaaaaaa..........",
+      "..........aeaaaaaaaaaaaaaaaaaaa...........",
+      "..........aeaaaaaaaaaaaaaaaaaa............",
+      "...........aaaaaaaaaaaaaaaaaa.............",
+      "............aaaaaagaafhaaa................",
+      ".............aa..hgiifhh..................",
+      ".................hgiifhh..................",
+      ".................hgiifhh..................",
+      ".................hgiifhh..................",
+      ".................hgfffhh..................",
+      ".................hgfffhh..................",
+      ".................hgiffhh..................",
+      ".................hgiifhh..................",
+      ".................hgiifhh..................",
+      ".................hgiifhh..................",
+      ".................hgiifhh..................",
+      ".................hgfifhh..................",
+      ".................hgfifhh..................",
+      "................hggiiffhh.................",
+      "...............hggiiiffhhh................",
+      "................hhhhhhhhh................."
+     ],
+     "key": {
+      "a": "g0",
+      "b": "g2",
+      "c": "g3",
+      "d": "g4",
+      "e": "g1",
+      "f": "w0",
+      "g": "w2",
+      "h": "n0",
+      "i": "w1"
+     }
+    },
+    {
+     "rows": [
+      "..............aa..............",
+      ".............abca.............",
+      "............abbcaa............",
+      "............abdcaa............",
+      "...........abddccaa...........",
+      "..........abbddccaaa..........",
+      "..........abddcccaaa..........",
+      "..........adddcccaaa..........",
+      "..........addbdcaaaa..........",
+      "...........abbdcaaa...........",
+      "..........abbddccaaa..........",
+      ".........abbdddccaaaa.........",
+      "........abbddddcccaaaa........",
+      "........addddddcccaaaa........",
+      ".........adddddcaaaaa.........",
+      "..........abbddccaaa..........",
+      "........aabbcddcccaaaa........",
+      ".......abbbddddcccaaaaa.......",
+      "......abbbddddccccaaaaaa......",
+      "......abddddddccccaaaaaa......",
+      ".......addddbbdcaaaaaaa.......",
+      "........adbbbddcccaaaa........",
+      ".......aabbbdddcccaaaaa.......",
+      "......abbbdddddccccaaaaa......",
+      ".....abbbdddddcccccaaaaaa.....",
+      "....abbdddddddcccccaaaaaaa....",
+      ".....addddddbbdccaaaaaaaa.....",
+      "......aaddbbbddcccaaaaaa......",
+      "......aabbbddddccccaaaaa......",
+      "....aabbbbdddddccccaaaaaaa....",
+      "...abbbbddddddccccccaaaaaaa...",
+      "..abbdddddddccccccccaaaaaaaa..",
+      "...aadddddddbbdccccaaaaaaaa...",
+      ".....aaddbbbbddcccaaaaaaa.....",
+      ".....aabbbbddddccccaaaaaa.....",
+      "...aabbbbdddddccccccaaaaaaa...",
+      "..abbbbddddddcccccccaaaaaaaa..",
+      ".abbddddddddccccccccaaaaaaaaa.",
+      "..adddddddddbbdccccaaaaaaaaa..",
+      "...aaadddbbbddddcccaaaaaaaa...",
+      "....aaabbbbddddcccccaaaaaa....",
+      "..aabbbbddddddcccccccaaaaaaa..",
+      "aabbbbdddddddccccccccaaaaaaaaa",
+      "bbbdddddddddcccccccccaaaaaaaaa",
+      "aadddddddddcccccccccaaaaaaaaaa",
+      "..aadddddccccccccccaaaaaaaaa..",
+      "....aaaaaaaaaefgaaaaaaaaaa....",
+      "............gefgg.............",
+      "............geggg.............",
+      "............gefgg.............",
+      "............gefgg.............",
+      "............gehgg.............",
+      "............gehgg.............",
+      "...........geffhgg............",
+      "..........geeffhhgg...........",
+      "...........ggggggg............"
+     ],
+     "key": {
+      "a": "g0",
+      "b": "g3",
+      "c": "g1",
+      "d": "g2",
+      "e": "w2",
+      "f": "w1",
+      "g": "n0",
+      "h": "w0"
+     }
+    }
+   ],
+   "shadow": true,
+   "flip": false,
+   "jitter": 3,
+   "footprint": [
+    1,
+    1
+   ],
+   "motion": "sway"
+  },
+  {
+   "id": "berry_bush",
+   "name": "浆果丛",
+   "layer": "object",
+   "pass": "walk",
+   "tags": [
+    "resource",
+    "berry"
+   ],
+   "variants": [
+    {
+     "rows": [
+      "....................",
+      "....................",
+      "......aaaaaaaa......",
+      "...aaabbbbbcccaa....",
+      "..abbbbccccccccca...",
+      ".abbbcccccccccccda..",
+      ".abcccccddefccdddda.",
+      ".accccddddfcdddefda.",
+      "acccddddacdddddfddaa",
+      ".acccefcddddddddaaa.",
+      ".acccfdddddddefaaaa.",
+      "..acddddefddafaaaa..",
+      "...addddfdaaaaaaa...",
+      "....aaddaaaaaaaa....",
+      "......aaaaaaaa......"
+     ],
+     "key": {
+      "a": "g0",
+      "b": "g3",
+      "c": "g2",
+      "d": "g1",
+      "e": "r2",
+      "f": "r1"
+     }
+    }
+   ],
+   "shadow": true,
+   "flip": false,
+   "jitter": 2,
+   "footprint": [
+    1,
+    1
+   ],
+   "motion": "sway"
+  },
+  {
+   "id": "rock",
+   "name": "岩石",
+   "layer": "object",
+   "pass": "walk",
+   "tags": [
+    "resource",
+    "stone"
+   ],
+   "variants": [
+    {
+     "rows": [
+      "......................",
+      "........aaaaaa........",
+      ".....aaabbccccaaa.....",
+      "....abbbcccccccdda....",
+      "...abbbcccccccdddda...",
+      "..abbcccccccddddddda..",
+      ".abcccccccdddddddddea.",
+      ".acccccccddddddddeeea.",
+      ".acccccddddddddeeeeea.",
+      "accccdddddddddeeeeeeea",
+      ".accddddddddeeeeefffa.",
+      ".addddddddeeeeeeffffa.",
+      ".addddddeeeeeeffffffa.",
+      "..addddeeeeeeffffffa..",
+      "...adeeeeeeeefffffa...",
+      "....aaaaaaaaaaaaaa....",
+      "......................"
+     ],
+     "key": {
+      "a": "n0",
+      "b": "s4",
+      "c": "s3",
+      "d": "s2",
+      "e": "s1",
+      "f": "s0"
+     }
+    }
+   ],
+   "shadow": true,
+   "flip": false,
+   "jitter": 2,
+   "footprint": [
+    1,
+    1
+   ],
+   "motion": "none"
+  },
+  {
+   "id": "hut",
+   "name": "小屋",
+   "layer": "object",
+   "pass": "block",
+   "tags": [
+    "structure"
+   ],
+   "variants": [
+    {
+     "rows": [
+      "........................................................",
+      "........................................................",
+      "........................................................",
+      "........................aaaaaaaa.....aaaaaaa............",
+      ".......................abbbbbbcca...addddddda...........",
+      "......................aeffffccccca..addddddda...........",
+      ".....................acceecccccccca..agghhha............",
+      "....................abbbccccccbbbbba.agghhha............",
+      "...................affffbbbbbbccccccaagghhha............",
+      "..................aeeeeeffffcccccccccagghhha............",
+      ".................accccccccccccccccccccgghhha............",
+      "................acbbbbbbccccccbbbbbbcccghhha............",
+      "...............abbffffffbbbbbbccccccbbbbhhha............",
+      "..............afffeeeeecffffccccccccccccchha............",
+      ".............aeeeecccccccccccccccccccccccca.............",
+      "............acccccbbbbbbccccccbbbbbbccccccba............",
+      "...........abbbbbbffffffbbbbbbccccccbbbbbbcca...........",
+      "..........aeffffffeeecccffffccccccccccccccccca..........",
+      ".........acceeeeeecccccccccccccccccccccccccccca.........",
+      "........abbbccccccbbbbbbccccccbbbbbbccccccbbbbba........",
+      ".......affffbbbbbbffffffbbbbbbccccccbbbbbbcccccca.......",
+      "......aeeeeeffffffecccccffffccccccccccccccccccccca......",
+      ".....acccccceeeeeecccccccccccccccccccccccccccccccca.....",
+      "....acbbbbbbccccccbbbbbbccccccbbbbbbccccccbbbbbbccca....",
+      "...abbffffffbbbbbbffffffbbbbbbccccccbbbbbbccccccbbbba...",
+      "..afffeeeeeeffffffccccccffffccccccccccccccccccccccccca..",
+      ".aeeeecccccceeeeeccccccccccccccccccccccccccccccccccccca.",
+      "acccccbbbbbbccccccbbbbbbccccccbbbbbbccccccbbbbbbccccccba",
+      "abbbbbffffffbbbbbbffffffbbbbbbccccccbbbbbbccccccbbbbbbca",
+      "afffffeeeeeeffffffccccccffffccccccccccccccccccccccccccca",
+      "aeeeeecccccceeeeecccccccccccccccccccccccccccccccccccccca",
+      "acccccbbbbbbccccccbbbbbbccccccbbbbbbccccccbbbbbbccccccba",
+      ".aaaaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbaaaaaa.",
+      "......aceeeeceeeeceeeeceeeeceeeeceeeeceeeeceeeecea......",
+      "......aceeeeceeeeceeeeceeeeceeeeceeeeceeeeceeeecea......",
+      "......aceeeeceeeeceeeeiiiiiiiiiiiieeeceeeeceeeecea......",
+      "......aceeiiiiiiiieeeeijjjjijjjjjieeeciiiiiiiiecea......",
+      "......aceeikkkikkieeeeijjjjijjjjjieeecikkkikkiecea......",
+      "......aceeikkkikkieeeeijjjjijjjjjieeecikkkikkiecea......",
+      "......aceeilllillieeeeijjjjijjjjjieeecilllilliecea......",
+      "......aceeiiiiiiiieeeeijjjjijjjjjieeeciiiiiiiiecea......",
+      "......aceeilllillieeeeijjjjijjjjjieeecilllilliecea......",
+      "......aceeilllillieeeeijjjjijjjjjieeecilllilliecea......",
+      "......aceeiiiiiiiieeeeijjjjijjjjjieeeciiiiiiiiecea......",
+      "......aceeeeceeeeceeeeijjjjijjjjjieeeceeeeceeeecea......",
+      "......aceeeeceeeeceeeeijjjjijjjfjieeeceeeeceeeecea......",
+      "......aceeeeceeeeceeeeijjjjijjjfjieeeceeeeceeeecea......",
+      "......aceeeeceeeeceeeeijjjjijjjjjieeeceeeeceeeecea......",
+      "......aceeeeceeeeceeeeijjjjijjjjjieeeceeeeceeeecea......",
+      "......aceeeeceeeeceeeeijjjjijjjjjieeeceeeeceeeecea......",
+      "......aceeeeceeeeceeeeijjjjijjjjjieeeceeeeceeeecea......",
+      "......aceeeeceeeeceeeeijjjjijjjjjieeeceeeeceeeecea......",
+      "......abbbbbbbbbbbbbbbijjjjijjjjjibbbbbbbbbbbbbbba......",
+      "......abbbbbbbbbbbbbbbijjjjijjjjjibbbbbbbbbbbbbbba......",
+      ".......aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.......",
+      "........................................................"
+     ],
+     "key": {
+      "a": "n0",
+      "b": "w2",
+      "c": "w3",
+      "d": "s1",
+      "e": "w4",
+      "f": "y1",
+      "g": "s3",
+      "h": "s2",
+      "i": "w0",
+      "j": "w1",
+      "k": "b2",
+      "l": "b3"
+     }
+    }
+   ],
+   "shadow": true,
+   "flip": false,
+   "jitter": 0,
+   "footprint": [
+    3,
+    2
+   ],
+   "motion": "none"
+  },
+  {
+   "id": "person",
+   "name": "人",
+   "layer": "object",
+   "pass": "walk",
+   "tags": [
+    "marker",
+    "npc"
+   ],
+   "variants": [
+    {
+     "rows": [
+      "..abbbba..",
+      ".abbbbbba.",
+      ".abccccba.",
+      ".acccccca.",
+      "..acccca..",
+      ".adeeeeda.",
+      "adeeeeeeda",
+      "adefggfeda",
+      "adeeeeeeda",
+      "aceeeeeeca",
+      ".adeeeeda.",
+      ".adeeeeda.",
+      ".ahhaahha.",
+      ".ahhaahha.",
+      ".aiiaaiia.",
+      "..aa..aa.."
+     ],
+     "key": {
+      "a": "n0",
+      "b": "w1",
+      "c": "w4",
+      "d": "k1",
+      "e": "k2",
+      "f": "r0",
+      "g": "r1",
+      "h": "w2",
+      "i": "w0"
+     }
+    },
+    {
+     "rows": [
+      "..abbbba..",
+      ".abbbbbba.",
+      ".abccccba.",
+      ".acccccca.",
+      "..acccca..",
+      ".adeeeeda.",
+      "adeeeeeeda",
+      "adefggfeda",
+      "adeeeeeeda",
+      "aceeeeeeca",
+      ".adeeeeda.",
+      ".adeeeeda.",
+      ".ahhaahha.",
+      ".ahhaahha.",
+      ".aiiaaiia.",
+      "..aa..aa.."
+     ],
+     "key": {
+      "a": "n0",
+      "b": "w1",
+      "c": "w4",
+      "d": "k0",
+      "e": "k1",
+      "f": "b1",
+      "g": "b2",
+      "h": "w2",
+      "i": "w0"
+     }
+    }
+   ],
+   "shadow": true,
+   "flip": true,
+   "jitter": 0,
+   "footprint": [
+    1,
+    1
+   ],
+   "motion": "bob"
+  },
+  {
+   "id": "spawn",
+   "name": "出生点",
+   "layer": "object",
+   "pass": "walk",
+   "tags": [
+    "marker"
+   ],
+   "variants": [
+    {
+     "rows": [
+      "...abcccca",
+      "...abccccc",
+      "...abcccca",
+      "...abccaa.",
+      "...abaa...",
+      "...aba....",
+      "...aba....",
+      "...aba....",
+      "..adbda...",
+      ".addddda.."
+     ],
+     "key": {
+      "a": "n0",
+      "b": "w3",
+      "c": "r2",
+      "d": "s2"
+     }
+    }
+   ],
+   "shadow": false,
+   "flip": false,
+   "jitter": 0,
+   "footprint": [
+    1,
+    1
+   ],
+   "motion": "none"
+  },
+  {
+   "id": "oak",
+   "name": "橡树",
+   "layer": "object",
+   "pass": "block",
+   "tags": [
+    "resource",
+    "wood",
+    "hardwood",
+    "tree"
+   ],
+   "variants": [
+    {
+     "rows": [
+      "..................aa.aabcaa...............",
+      "................aabcacccccbaaa............",
+      "...............accccccddbbbbbcaa..........",
+      "..............abcddbbbdbbbcccccba.........",
+      ".............aabcdbbbbbbbbcccbbeba........",
+      "............acccccbbeebcbcccbbbebaa.......",
+      "..........aabcccbbbbcccccbbbebbbbbea......",
+      "........aabccccbbbbbcddbbbbbebbbeeeea.....",
+      ".......acccccbbbbbbccdbbbbbebbbeeeeebaa...",
+      "......abcddbbbbbcccccebbeeeabeeeebbbbbea..",
+      "....aabccdbbbbbbcccbbbbbeeeabeeeebbbeeeea.",
+      "...acccccebbbcccccbbbbbeeebaaeaebbbeeeeea.",
+      "..abcccbbbcccccbbbbbeeebbbbbeaaabeeeeaaaa.",
+      "..acccbbbccbcbbbbbbbbeebbbeeeeaabeeeeaaaa.",
+      "..acbbcccccbbbbbbbbbbbebbeeeeea.aeaeaaaa..",
+      "..acbbcddbbbbbeeebbbeeebbeeaaaaaebaaaaa...",
+      "...abccdbbbbbbeebbbebbbbbeeaaabbbbbeaa....",
+      "...aabccbbeeeaeebbbebbbeeeeaabbebeeeea....",
+      "..acccccbbeeeaebbbbbbeeeeebbbbbeeeeeeeaa..",
+      ".abcddbbbbeeaaebbbeeeeeeebbebeeeeeeeeeeaa.",
+      ".accdbbbbbeafabbbeeeeebbbbbeeeeeeeeeeaaaaa",
+      ".acbbbbeeebafabeeeeaaebbbeeeeeaaaeeeaaaaaa",
+      ".acbbbbbbbbbeabeeebaabbbeeeeeeaaaaeaaaaaaa",
+      "..abebbbbbeeeeabbbbbabeeeeaaaaaeeeeeaaaaaa",
+      "...aaabbbeeeeeebbbeeeeeeeeaaaaaeeeaaaaaaa.",
+      ".....abeebeaaabbbeeeeeeeeaaaeaeeeaaaaaaa..",
+      ".....abbbbbaaabeeeeaeeeeeeeeeeaaaaaaaaa...",
+      "....aebbbeeeeabeeeeaeeeaaeeeaaaaaaaaaaa...",
+      "....abbbeeeeeaaeeeeeeeaaeeeaaaaeaaaaaa....",
+      "....abeeeeaaeeeeeaaeaaeaeaaaeeeeeaaaa.....",
+      "....abeeeeaaeeeaaaaeeeeeaaaaeeeaaaaa......",
+      ".....aeaeaaeeeaaaaaeeeaaaaaeeeaaaaaa......",
+      "......aaaaaeaaaaaaeeeaaaaaaeaaaaaaaa......",
+      "..........aeaaaaaaeaaaaaaaaeaaaaaaaa......",
+      "...........aaaaaaaeaaaaaaaaaaaaaaaa.......",
+      "............aaaaaagaaaaaaa..aaaaaa........",
+      "................ahgiifhaa.......a.........",
+      ".................hgiifha..................",
+      ".................hgiifhh..................",
+      ".................hgiifhh..................",
+      ".................hgiifhh..................",
+      ".................hgiifhh..................",
+      ".................hgiifhh..................",
+      ".................hgiifhh..................",
+      ".................hgiifhh..................",
+      ".................hgiifhh..................",
+      ".................hgiifhh..................",
+      ".................hgiffhh..................",
+      ".................hgiffhh..................",
+      ".................hgiifhh..................",
+      ".................hgiifhh..................",
+      "................hggiiffhh.................",
+      "...............hggiiiffhhh................",
+      "................hhhhhhhhh................."
+     ],
+     "key": {
+      "a": "g0",
+      "b": "g2",
+      "c": "g3",
+      "d": "g4",
+      "e": "g1",
+      "f": "w0",
+      "g": "w2",
+      "h": "n0",
+      "i": "w1"
+     }
+    },
+    {
+     "rows": [
+      "...............a............a.............",
+      ".............aabaaa..a....aabaaa..........",
+      "............acccccbaabaaaacccccba.........",
+      "...........abcccbbbcccccbbcddbbbba........",
+      "...........acccbbbbcddbbbbcdbbbbba........",
+      "...........acbbbbbccdbbbbbbbebeeea........",
+      "...........acbbcccccebbeeeebebeeea........",
+      "........a...abbcddbbbbbeeebbbbbea.........",
+      "......aabaaa.accdbbbbbeeeebbbeeeea........",
+      ".....acccccbaacbbbbeeeaaabbbeeeeeaaaa.....",
+      "....abcddbbbbacbbbbeeeaaebeeeebbbbbeeaaa..",
+      "....accdbbbbbaabbbeeeabbbbbeeebbbebbbbbea.",
+      "....acbbbbeeeacccccbeebebeeeebbbeebbbeeeea",
+      "..aabcbcccccbbcddbbbbbbeeeeeebeeebbbeeeeea",
+      ".accccccddbbbbcdebbbbeeeeeaabbbbbeeeeeaaaa",
+      "abcddbbbdbbbbbbbbbbbeeeeeeaabbbeeeeeeeaaaa",
+      "accdbbbbbebeeeebbbbbbeaaaeabbbeeeeaaeaaaa.",
+      "acbbbbeeeebeeeeebbbeeeebbbbbeeeeeeeeeaaa..",
+      "acbbbbeeeeeeeaabbbeeeeebbbeeeeeeeeeaaaaa..",
+      ".abbbeeeeaaaa.abeeeeaabbbeeeeeeeeeaaaaaa..",
+      "..abeaaaaeaafaebeeeeaabeeeeaaaaeaaaaaaaa..",
+      "...aa.abbbbbbbbbbeeaaabeeeeaeeeeeaaaaaaa..",
+      ".....aebbbeebbbeeeebbbbbeeaaeeeaaaaaaaa...",
+      ".....abbbeebbbeeeeebbbeeeefeeeaaaeeeeeaa..",
+      ".....abeeeebeeeeaabbbeeeeaaeaaaaaeeeaaaaa.",
+      ".....abeeeebeeeeaabeeeeeeeeeaaaaeeeaaaaaa.",
+      "....abbbbbebbbbbeabeeeeeeeaaaeeeeeaaaaaaa.",
+      "...aebbbeeebbbeeeeeeaeeeeaaaaeeeaaaaaaaaa.",
+      "...abbbeeebbbaeeeeaaaaeaaaaaeeeaaaaaaaaa..",
+      "...abeeeeabeeeeeeaaaaaeaaaaaeaaaaaaaaaa...",
+      "...abeeeeabeeeaaaaaaaaeeeeeeaaaaaaaaa.....",
+      "....aeeeaaaeeeeeeaeeeeeaaeaaaaaaaaaa......",
+      ".....aeaaaaaeeeaaaaaeaaaaaaaaaaaaaa.......",
+      "......aa..aeeeaaaaaaaaaaaaaaaaaa..........",
+      "..........aeaaaaaaaaaaaaaaaaaaa...........",
+      "..........aeaaaaaaaaaaaaaaaaaa............",
+      "...........aaaaaaaaaaaaaaaaaa.............",
+      "............aaaaaagaafhaaa................",
+      ".............aa..hgiifhh..................",
+      ".................hgiifhh..................",
+      ".................hgiifhh..................",
+      ".................hgiifhh..................",
+      ".................hgfffhh..................",
+      ".................hgfffhh..................",
+      ".................hgiffhh..................",
+      ".................hgiifhh..................",
+      ".................hgiifhh..................",
+      ".................hgiifhh..................",
+      ".................hgiifhh..................",
+      ".................hgfifhh..................",
+      ".................hgfifhh..................",
+      "................hggiiffhh.................",
+      "...............hggiiiffhhh................",
+      "................hhhhhhhhh................."
+     ],
+     "key": {
+      "a": "g0",
+      "b": "g2",
+      "c": "g3",
+      "d": "g4",
+      "e": "g1",
+      "f": "w0",
+      "g": "w2",
+      "h": "n0",
+      "i": "w1"
+     }
+    },
+    {
+     "rows": [
+      "..........................................",
+      ".................a.a.....a.a..............",
+      "...........a.a.aababa..aababa.............",
+      ".........aababacccccbaacccccba............",
+      "........acccccbcddbbbbbcddbbbba.a.a.......",
+      ".......abcccbbbbdbbbbbccdbbbbbaaeaea......",
+      ".....aabccbbbbbbbbbeeecbbbbeeebbbbbea.....",
+      "....accccccbbbbeebbbeecbbbbeeebbbeeeea....",
+      "...abcddbbccccceccccbaabebeeebbbeeeeea....",
+      "...accdbbbcddbbbbcbbbbaaaeaeabeeeeaaaa....",
+      "...acbbbbccdbbbbbbbbbbaaeaeabbbbbeaaaaa...",
+      "...acbbbbcbbbbeeeebeeebbbbbebbbeeeaaeaea..",
+      "....abbbbcbbbbeeebbeeebbbeeeeeeeeebbbbbea.",
+      "...accccccccccecccceebbbeeeeeeeeaebbbeeeea",
+      "..abcddbbcddbbbbcbbeebeeeeaaaaeeabbbeeeeea",
+      "..accdbbccdbbbbbbbbbbbbeeeaaaaeaabeeeeaaaa",
+      "..acbbbbcbbbbeeeebbbbeeeeaaaaaaaabeeeeaaaa",
+      "..acbbbcccccbeeeebbbeeeeeaaaeaeaaaeaeaaaa.",
+      "...abbbcddbbbbbbbeeeeeaaaabbbbbea.aaaaaa..",
+      ".aababccdbbebebeeeeeeeeaaebbbeeeeaeeeeeaa.",
+      "acccccbbbbbebeeeeebbbbbeabbbeeeeeaeeeaaaaa",
+      "bcddbbbbbbbbbbeeaebbbeeeebeeeeaaaeeeaaaaaa",
+      "ccdbbbbbbbbbeeeeabbbeeeeeeeeeaaaaeaaaaaaaa",
+      "cbbbbeeebbbeeeeeabeeeeaaeeeaaaaaaeeeeeaaaa",
+      "cbbbbeeebeeeeaaaabeeeeaeeeaaaaaaaaaeaaaaa.",
+      "abebeeebbbbbeaaabbbbbeaeaaaaaeeeeeaaaaaaa.",
+      ".aaeaeebbbeeeeaabbbeeaeeeeeaaeeeaaaaaaaaa.",
+      "...a.abbbeeeeeabbbeeeaeeeaaaaeeaaaaaaaaaa.",
+      ".....abeeeeeeeabeaaaaeeeaaaaaaaaaaaaaaaa..",
+      ".....abeebbbbbeeeeeeaeaaaaaaaaaaaaaaaaa...",
+      "......aeebbbeeeeeeaaaaaaeeeeeaaaaaaa.a....",
+      ".......abbbeeeeeeaaaaaaaeeeaaaaaaaa.......",
+      ".......abeeeeaeaaaaaaafeeeaaaaaa.a........",
+      ".......abeeeeaeaaaaaaafeaaaaaaaa..........",
+      "........aeaeaaaaaaaaagfeaaaaaaaa..........",
+      ".........aaaaaaaaahaigfaaaaaaaa...........",
+      "...........a.a...ahiigffaaaaaa............",
+      ".................fhiigff..a.a.............",
+      ".................fhiigff..................",
+      ".................fhgigff..................",
+      ".................fhgigff..................",
+      ".................fhgigff..................",
+      ".................fhiigff..................",
+      ".................fhiigff..................",
+      ".................fhiigff..................",
+      ".................fhiigff..................",
+      ".................fhiigff..................",
+      ".................fhiigff..................",
+      ".................fhiigff..................",
+      ".................fhgigff..................",
+      ".................fhgigff..................",
+      "................fhhgiggff.................",
+      "...............fhhiiiggfff................",
+      "................fffffffff................."
+     ],
+     "key": {
+      "a": "g0",
+      "b": "g2",
+      "c": "g3",
+      "d": "g4",
+      "e": "g1",
+      "f": "n0",
+      "g": "w0",
+      "h": "w2",
+      "i": "w1"
+     }
+    }
+   ],
+   "shadow": true,
+   "flip": false,
+   "jitter": 3,
+   "footprint": [
+    1,
+    1
+   ],
+   "motion": "sway"
+  },
+  {
+   "id": "pine",
+   "name": "松",
+   "layer": "object",
+   "pass": "block",
+   "tags": [
+    "resource",
+    "wood",
+    "resin",
+    "tree"
+   ],
+   "variants": [
+    {
+     "rows": [
+      "..............aa..............",
+      ".............abca.............",
+      "............abbcaa............",
+      "............abdcaa............",
+      "...........abddccaa...........",
+      "..........abbddccaaa..........",
+      "..........abddcccaaa..........",
+      "..........adddcccaaa..........",
+      "..........addbdcaaaa..........",
+      "...........abbdcaaa...........",
+      "..........abbddccaaa..........",
+      ".........abbdddccaaaa.........",
+      "........abbddddcccaaaa........",
+      "........addddddcccaaaa........",
+      ".........adddddcaaaaa.........",
+      "..........abbddccaaa..........",
+      "........aabbcddcccaaaa........",
+      ".......abbbddddcccaaaaa.......",
+      "......abbbddddccccaaaaaa......",
+      "......abddddddccccaaaaaa......",
+      ".......addddbbdcaaaaaaa.......",
+      "........adbbbddcccaaaa........",
+      ".......aabbbdddcccaaaaa.......",
+      "......abbbdddddccccaaaaa......",
+      ".....abbbdddddcccccaaaaaa.....",
+      "....abbdddddddcccccaaaaaaa....",
+      ".....addddddbbdccaaaaaaaa.....",
+      "......aaddbbbddcccaaaaaa......",
+      "......aabbbddddccccaaaaa......",
+      "....aabbbbdddddccccaaaaaaa....",
+      "...abbbbddddddccccccaaaaaaa...",
+      "..abbdddddddccccccccaaaaaaaa..",
+      "...aadddddddbbdccccaaaaaaaa...",
+      ".....aaddbbbbddcccaaaaaaa.....",
+      ".....aabbbbddddccccaaaaaa.....",
+      "...aabbbbdddddccccccaaaaaaa...",
+      "..abbbbddddddcccccccaaaaaaaa..",
+      ".abbddddddddccccccccaaaaaaaaa.",
+      "..adddddddddbbdccccaaaaaaaaa..",
+      "...aaadddbbbddddcccaaaaaaaa...",
+      "....aaabbbbddddcccccaaaaaa....",
+      "..aabbbbddddddcccccccaaaaaaa..",
+      "aabbbbdddddddccccccccaaaaaaaaa",
+      "bbbdddddddddcccccccccaaaaaaaaa",
+      "aadddddddddcccccccccaaaaaaaaaa",
+      "..aadddddccccccccccaaaaaaaaa..",
+      "....aaaaaaaaaefgaaaaaaaaaa....",
+      "............gefgg.............",
+      "............geggg.............",
+      "............gefgg.............",
+      "............gefgg.............",
+      "............gehgg.............",
+      "............gehgg.............",
+      "...........geffhgg............",
+      "..........geeffhhgg...........",
+      "...........ggggggg............"
+     ],
+     "key": {
+      "a": "g0",
+      "b": "g3",
+      "c": "g1",
+      "d": "g2",
+      "e": "w2",
+      "f": "w1",
+      "g": "n0",
+      "h": "w0"
+     }
+    },
+    {
+     "rows": [
+      "..............aa..............",
+      ".............abca.............",
+      "............abbcaa............",
+      "............abdcaa............",
+      "...........abddccaa...........",
+      "..........abbddccaaa..........",
+      "..........abddcccaaa..........",
+      "..........adddcccaaa..........",
+      "..........addbdcaaaa..........",
+      "...........abbdccaa...........",
+      "..........abbddccaaa..........",
+      ".........abbdddccaaaa.........",
+      "........abbdddccccaaaa........",
+      "........adddddccccaaaa........",
+      ".........adddddcaaaaa.........",
+      "..........abbddccaaa..........",
+      "........aabbdddcccaaaa........",
+      ".......abbbddddcccaaaaa.......",
+      "......abbbddddccccaaaaaa......",
+      "......abddddddccccaaaaaa......",
+      ".......addddbbdcaaaaaaa.......",
+      "........adbbbddcccaaaa........",
+      ".......aabbbdddcccaaaaa.......",
+      "......abbbdddddccccaaaaa......",
+      ".....abbbdddddcccccaaaaaa.....",
+      "....abbdddddddcccccaaaaaaa....",
+      ".....addddddbbdccaaaaaaaa.....",
+      "......aaddbbbddcccaaaaaa......",
+      "......aabbbddddccccaaaaa......",
+      "....aabbbbdddddccccaaaaaaa....",
+      "...abbbbddddddccccccaaaaaaa...",
+      "..abbdddddddccccccccaaaaaaaa..",
+      "...aadddddddbbdccccaaaaaaaa...",
+      ".....aaddbbbbddcccaaaaaaa.....",
+      ".....aabbbbdddcccccaaaaaa.....",
+      "...aabbbbdddddccccccaaaaaaa...",
+      "..abbbbddddddcccccccaaaaaaaa..",
+      ".abbddddddddccccccccaaaaaaaaa.",
+      "..adddddddddbbdccccaaaaaaaaa..",
+      "...aaadddbbbddddcccaaaaaaaa...",
+      "....aaabbbbddddcccccaaaaaa....",
+      "..aabbbbddddddcccccccaaaaaaa..",
+      "aabbbbdddddddccccccccaaaaaaaaa",
+      "bbbdddddddddcccccccccaaaaaaaaa",
+      "aadddddddcdcccccccccaaaaaaaaaa",
+      "..aadddddccccccccccaaaaaaaaa..",
+      "....aaaaaaaaaefeaaaaaaaaaa....",
+      "............gefeg.............",
+      "............gefgg.............",
+      "............ghggg.............",
+      "............ghfgg.............",
+      "............ghfgg.............",
+      "............ghfgg.............",
+      "...........ghffegg............",
+      "..........ghhffeegg...........",
+      "...........ggggggg............"
+     ],
+     "key": {
+      "a": "g0",
+      "b": "g3",
+      "c": "g1",
+      "d": "g2",
+      "e": "w0",
+      "f": "w1",
+      "g": "n0",
+      "h": "w2"
+     }
+    }
+   ],
+   "shadow": true,
+   "flip": false,
+   "jitter": 3,
+   "footprint": [
+    1,
+    1
+   ],
+   "motion": "sway"
+  },
+  {
+   "id": "birch",
+   "name": "白桦",
+   "layer": "object",
+   "pass": "block",
+   "tags": [
+    "resource",
+    "wood",
+    "bark",
+    "tree"
+   ],
+   "variants": [
+    {
+     "rows": [
+      ".............a.a..........",
+      ".......a.a.aababa.........",
+      ".....aababacccccba.a......",
+      "....acccccbcccbbddada.....",
+      "...abcccbbbbcbbbbbbbda....",
+      "...acccbbbbbbddbbbdddda...",
+      "...acbbbbddddbbbbddddda...",
+      "...acbbbbddddbbddddaaaa...",
+      "..acccccbddbbbbbdddaaaa...",
+      ".abcccbbbbdbbbddddaadada..",
+      ".acccbbbbbbbbdddddbbbbbda.",
+      ".acbbbbddddddddaadbbbdddda",
+      "acccccbdddddddddabbbddddda",
+      "bcccbbbbdaabbbbbabddaaaaaa",
+      "cccbbbbbaadbbbddddddddddaa",
+      "cbbbbdddbbbbbdddddadddaaaa",
+      "cbbbbdddbdbddddaaaaddaaaaa",
+      "abdbddddbddddddddddaaaaaaa",
+      ".aaaabbbbbddaadddaaaaaaaaa",
+      "...adbbbddddadddaaaaaaaaaa",
+      "...abbbdddddadaaaaaaaaaaa.",
+      "...abddddaaaadaaaaaaaa.a..",
+      "...abddddaaaaddddddaa.....",
+      "....adadaaaefddddaaaaa....",
+      ".....aaaaaaefdddaaaaaa....",
+      ".........ageedaaaaaaaa....",
+      "..........gefdaaaaaaaa....",
+      "..........gefgaaaaaaa.....",
+      "..........gefgaaaaaa......",
+      "..........geggg...a.......",
+      "..........geggg...........",
+      "..........geggg...........",
+      "..........geggg...........",
+      "..........gefgg...........",
+      "..........gefgg...........",
+      "..........geggg...........",
+      "..........gefgg...........",
+      "..........gefgg...........",
+      "..........geggg...........",
+      "..........gefgg...........",
+      "..........gefgg...........",
+      "..........geggg...........",
+      "..........gehgg...........",
+      "..........gehgg...........",
+      "..........ggggg...........",
+      "..........ghggg...........",
+      "..........ghhgg...........",
+      ".........geehhgg..........",
+      ".........geefhhgg.........",
+      "..........gggggg.........."
+     ],
+     "key": {
+      "a": "g1",
+      "b": "g3",
+      "c": "g4",
+      "d": "g2",
+      "e": "f0",
+      "f": "s4",
+      "g": "s1",
+      "h": "s3"
+     }
+    },
+    {
+     "rows": [
+      "..........................",
+      "..........................",
+      "..............a...........",
+      "....a.....a.aabaaa........",
+      "..aabaaaaabacccccba.a.....",
+      ".acccccbcccccccbbbbadaaa..",
+      "abcccbbbbccbbcbbbbbbbbbda.",
+      "acccbbbbbcbbbbbbddbbbdddda",
+      "acbbbbdddddbbbbbdbbbddddda",
+      "acbbbbbddddbbbddddddddaaaa",
+      ".abbcccccbbbbdddddddddaaa.",
+      "..abcccbbbbddddaaaaaaaaaa.",
+      "..acccbbbbbddddaaadddddaa.",
+      ".aabbbbbdddaadaaaadddaaaaa",
+      "acccccbbddaaaaaaadddaaaaaa",
+      "bcccbbbbddaefaaaadaaaaaaaa",
+      "cccbbbbbbbbddddddaaaaaaaa.",
+      "cbbbbbbbbddddddaaaaaaaaaa.",
+      "cbbbbbbbddddddaaadddddaa..",
+      "abdbbbddddaaaaaaadddaaaaa.",
+      ".aadbbbbbddddddadddaaaaaa.",
+      "..adbbbddddddaaaaaaaaaaaa.",
+      "..abbbddddddaaaaaaaaaaaa..",
+      "..abddddaaaaaaaaaaaaaaaa..",
+      "..abddddaaaaaaaaaaaaaaa...",
+      "...adadaaaaaaaaaa..aa.....",
+      "....aaaaaaagaaaa..........",
+      "......aa..gehhg...........",
+      "..........ghhhg...........",
+      "..........ghggg...........",
+      "..........ghhgg...........",
+      "..........gefgg...........",
+      "..........ggfgg...........",
+      "..........ghfgg...........",
+      "..........ghfgg...........",
+      "..........gghhg...........",
+      "..........gehhg...........",
+      "..........gehgg...........",
+      "..........geggg...........",
+      "..........gefgg...........",
+      "..........gefgg...........",
+      "..........geggg...........",
+      "..........geggg...........",
+      "..........geggg...........",
+      "..........ggggg...........",
+      "..........gefhg...........",
+      "..........gefhg...........",
+      ".........geffhgg..........",
+      ".........geefhhgg.........",
+      "..........gggggg.........."
+     ],
+     "key": {
+      "a": "g1",
+      "b": "g3",
+      "c": "g4",
+      "d": "g2",
+      "e": "f0",
+      "f": "s4",
+      "g": "s1",
+      "h": "s3"
+     }
+    }
+   ],
+   "shadow": true,
+   "flip": false,
+   "jitter": 3,
+   "footprint": [
+    1,
+    1
+   ],
+   "motion": "sway"
+  },
+  {
+   "id": "alder",
+   "name": "桤木",
+   "layer": "object",
+   "pass": "block",
+   "tags": [
+    "resource",
+    "wood",
+    "tree",
+    "wet"
+   ],
+   "variants": [
+    {
+     "rows": [
+      "........abbbbbca................",
+      ".......acbddcccca....a.a........",
+      ".......abbdccccca..aaaaaa.......",
+      ".......abccccaaaa.acccccaa......",
+      ".......abccccaaaaaacccaaaaa.....",
+      ".......abbbbbaaaaacccaaaaaa.....",
+      "......acbddccccabbbbbaaaaaa.....",
+      "......abbdccccccbbbccccaaaaa....",
+      "......abccccaaabbbcccccccccaa...",
+      "....aacbccccaaabccccaacccaaaaa..",
+      "...abbbbbcccbbbbbcccacccaaaaaa..",
+      "..acbddcccccbddccccaacaaaaaaaa..",
+      "..abbdcccccbbdcccccacccccaaaaa..",
+      "..abccccaaaacaacaaaacccaaaaaa...",
+      ".abbbbbcacccccacaaacccaaaaaaa...",
+      "acbbbccaacccaacccccaaaaaaaaaaa..",
+      "abbbcccccccaaacccacccccaaaaaaaa.",
+      "abccccaacaaaacccaacccaaaaaaaaaa.",
+      "abccccaacaaaacaaacccaaaaaaaaaaa.",
+      ".acacaaaaaaaacaaacaaaaaaaaaaaaa.",
+      "..aaaaaa.aaaaaaccccaaaaaaaaaaa..",
+      ".....aaaaacccccccaaaaaaaaaaaa...",
+      "....acccccaacaaaaaaaaaaaaaaa....",
+      "...aacccaaaaaaaaaaaaaaaaaaaaa...",
+      "...acccaaaaaaaaaaaaaaaaaaaaaa...",
+      "...acaaaaaaaaaaaaaaaaaaaaaaaa...",
+      "...acaaaaaaaaaaaaaaaaaaaaaaaa...",
+      "....aaaaaaaaaaaaaaaaaaaaaaaa....",
+      ".....aaaaaaaaaaaaaaaaaaaaaa.....",
+      ".....acccccaaaaaaaaaaaaaaa......",
+      "....aacccaaaaaaaaaaaaaaaaa......",
+      "....acccaaaaaaaaaaaaaaaaaa......",
+      "....acaaaaaaaaaaaaaaaaaaa.......",
+      "....acaaaaaaaaaaaaaaaaaa........",
+      ".....aaaaaaaaaaaaaaaaaa.........",
+      "......aaaaaaaaaaaaaaaaa.........",
+      "........aaaaaaaaaaaaaa..........",
+      ".........aaaaaaaeaaaa...........",
+      "..........aaaafgeea.............",
+      ".............afgee..............",
+      ".............efgee..............",
+      ".............efgee..............",
+      ".............efgee..............",
+      ".............efgee..............",
+      ".............efgee..............",
+      ".............efgee..............",
+      ".............efgee..............",
+      "............efgggee.............",
+      "...........effggggee............",
+      "............eeeeeee............."
+     ],
+     "key": {
+      "a": "g0",
+      "b": "g2",
+      "c": "g1",
+      "d": "g3",
+      "e": "n0",
+      "f": "w1",
+      "g": "w0"
+     }
+    },
+    {
+     "rows": [
+      "...........abbbbbcaaaaa.........",
+      ".........aaabddccaabcbca........",
+      "........abcbbdccccbbbbbca.......",
+      ".......abbbbbaccaabddccaa.......",
+      ".......abddcccbcbbbdccccca......",
+      "......abbdcccbbbbbcccccccaa.....",
+      "......abcccccbbbccccccccccaa....",
+      "......abccccbbbcccccccccaaaa....",
+      ".....abbbccabcccccaacccaaaaaa...",
+      "....abbbbbcabccccccacaaaaaaaa...",
+      "...aabcbccaaaccccaaacaaaaaaaa...",
+      "..abcbccccccacccaaaaaaaacccaa...",
+      ".abbbbbccaaaccccacacaaacccccaa..",
+      ".abddcccbbbccccccccccaacccaaaa..",
+      "abbdcccbbbbbccaacccaaacccaaaaaa.",
+      "abcccccbbbccaaacccaacccaaaaaaaa.",
+      "abccccbbbcccccccccacccccaaaaaaa.",
+      ".acaccbccccaacccccacccaaaaaaaa..",
+      "..aabbbccccaacccaaaccaaaaaaaa...",
+      "..abbbbbccaacccaaaaaaaaaaaa.....",
+      "..abddccaaaacaaaaaaaaaaaaaa.....",
+      ".abbdcccccaacaaaaaaaaaaaaaaa....",
+      ".abccacaaacacaaaaaaaaaaaaaaaa...",
+      ".abccacaacccccaaaaaaaaaaaaaaa...",
+      "..acccccacccaaaaaaaaaaaaaaaaaa..",
+      "..acccaaaccaaaaaaaaaaaaaaaaaaa..",
+      ".acccaaaaaaaaaaaaaaaaaaaaaaaaa..",
+      ".acaaaaaaaaaaaaaaaaaaaaaaaaaa...",
+      ".acaaaaaaaaaaaaaaaaaaaaaaaaa....",
+      "..aaaaaaaaaaaaaaaaaaaaaaaaa.....",
+      "...aaaaaaaaaaaaaaaaaaaaaaaa.....",
+      "......a.aaaaaaaaaaaaaaaaaaa.....",
+      ".......aaaaaaaaaaaaaaaaaaa......",
+      ".......aaaaaaaaaea.aaaaaa.......",
+      ".......aaaaaaaaaef....a.........",
+      "........aaaaaaaeef..............",
+      ".........aaaaageef..............",
+      "............afgeef..............",
+      ".............fgeff..............",
+      ".............fgeff..............",
+      ".............fgeff..............",
+      ".............fgeff..............",
+      ".............fgeef..............",
+      ".............fgeef..............",
+      ".............fgeff..............",
+      ".............fgeff..............",
+      ".............fgeff..............",
+      "............fgeeeff.............",
+      "...........fggeeeeff............",
+      "............fffffff............."
+     ],
+     "key": {
+      "a": "g0",
+      "b": "g2",
+      "c": "g1",
+      "d": "g3",
+      "e": "w0",
+      "f": "n0",
+      "g": "w1"
+     }
+    }
+   ],
+   "shadow": true,
+   "flip": false,
+   "jitter": 3,
+   "footprint": [
+    1,
+    1
+   ],
+   "motion": "sway"
+  },
+  {
+   "id": "windbent",
+   "name": "风压树",
+   "layer": "object",
+   "pass": "block",
+   "tags": [
+    "resource",
+    "wood",
+    "tree"
+   ],
+   "variants": [
+    {
+     "rows": [
+      ".......................aa.............",
+      ".....................aabcaa...........",
+      "..................aaacccccba.aa.......",
+      "................aabcbcccbbbbadbaa.....",
+      "..............aaccccccbbbbbbbbbbda....",
+      "............aabcceebbbbbbddbbbdddda...",
+      "...........acccccebbbbbbbbbbbddddbaa..",
+      "..........abceebbbbbddbbbbbdddbbbbbda.",
+      "..........accebbbbbbddbbbdddddbbbdddda",
+      ".........aabccbbdddddbbbdddddbbbddddda",
+      "........acccccbbddbbbbbaddaaaaddadddaa",
+      ".......abceebbbbddbbbdddddadddddadddda",
+      ".......accebbbbbabbbddddddddadaaaadaaa",
+      ".......acbbbbdddbbddddddddddaaaaaaaaaa",
+      "........abbbbbbbbbdddddaadaaaaaaaaaaaa",
+      "........abdbbbbbdddddaaaaaaaaaaaaaaaaa",
+      ".........aadbbbdddddaaaaaaaaaaaaaaaaaa",
+      "...........abdddddaaaaaaaaaaaaaaaaaaaa",
+      "............addddaaaaaaaaaaaaaa...aa..",
+      "............adddaaaaaaaaaaaaa.........",
+      "............fgaaaaaaaaaa.aa...........",
+      ".............fghff..aa................",
+      ".............fghff....................",
+      ".............fghiif...................",
+      "..............fghif...................",
+      "..............fghiff..................",
+      "..............fghiff..................",
+      "...............fghff..................",
+      "...............fghiff.................",
+      "..............fgghiiff................",
+      "..............fgghhiiff...............",
+      "...............fffffff................"
+     ],
+     "key": {
+      "a": "g0",
+      "b": "g2",
+      "c": "g3",
+      "d": "g1",
+      "e": "g4",
+      "f": "n0",
+      "g": "w2",
+      "h": "w1",
+      "i": "w0"
+     }
+    },
+    {
+     "rows": [
+      "......................................",
+      ".........................aaa..........",
+      "...................aaa..abcbaaaa......",
+      "..................abcbaabbbbbcdcaa....",
+      "..............aaaabbbbbcbeeccccccda...",
+      ".............abcbcbbbccdcedccccdddda..",
+      "............abbbbbbccccdccdcccdddcdcaa",
+      "...........acbeeccccdcccccdcddddcccccd",
+      "..........abcbecccccdcccddddddddcccdda",
+      ".........abbbbbccccccccddddddddcccdddd",
+      "........acbeecccccccccaddddddddddaddaa",
+      "........abbeccccccccddadddddadaaddddaa",
+      "........abcccccccccdddadddaaaaadddddaa",
+      "........abccccccccdadadddaaaaaadddaaaa",
+      ".........acddcccdddadadaaaadaddddaaaaa",
+      "..........aacccddddddddadadddddaaaaaaa",
+      "...........acddaadddadddddaadaaaaaaaaa",
+      "...........acddddddaadddaaaaaaaaaaaaaa",
+      "............addddaaadddaaaaaaaaaaaaaa.",
+      "............fghddaaadaaaaaaaaaaaaaa...",
+      "............fghhfaaadaaaaaaaaaaaa.....",
+      ".............fghfaaaaaaaaaaaaaaa......",
+      ".............fghff.aaaaaaaa.aa........",
+      ".............fghiff....aa.............",
+      "..............fgiif...................",
+      "..............fghiff..................",
+      "..............fghiff..................",
+      "...............fghff..................",
+      "...............fghiff.................",
+      "..............fgghiiff................",
+      "..............fgghhiiff...............",
+      "...............fffffff................"
+     ],
+     "key": {
+      "a": "g0",
+      "b": "g3",
+      "c": "g2",
+      "d": "g1",
+      "e": "g4",
+      "f": "n0",
+      "g": "w2",
+      "h": "w1",
+      "i": "w0"
+     }
+    }
+   ],
+   "shadow": true,
+   "flip": false,
+   "jitter": 2,
+   "footprint": [
+    1,
+    1
+   ],
+   "motion": "sway"
+  },
+  {
+   "id": "shortgrass",
+   "name": "短草",
+   "layer": "plant",
+   "pass": "walk",
+   "tags": [
+    "plant",
+    "cuttable",
+    "short"
+   ],
+   "grow": {
+    "height": [
+     2,
+     4
+    ],
+    "density": 0.28,
+    "colors": [
+     "g1",
+     "g2",
+     "g3"
+    ],
+    "under": "g2",
+    "spill": 1,
+    "bloom": [],
+    "blooming": 0.0,
+    "form": "blades",
+    "width": 1,
+    "stiff": false,
+    "still": false
+   }
+  },
+  {
+   "id": "flowergrass",
+   "name": "花草",
+   "layer": "plant",
+   "pass": "walk",
+   "tags": [
+    "plant",
+    "cuttable",
+    "short",
+    "flowers"
+   ],
+   "grow": {
+    "height": [
+     2,
+     5
+    ],
+    "density": 0.28,
+    "colors": [
+     "g1",
+     "g2",
+     "g3"
+    ],
+    "under": "g2",
+    "spill": 1,
+    "bloom": [
+     "y2",
+     "pk2",
+     "f0",
+     "o1",
+     "y2"
+    ],
+    "blooming": 0.3,
+    "form": "blades",
+    "width": 1,
+    "stiff": false,
+    "still": false
+   }
+  },
+  {
+   "id": "flowergrass_long",
+   "name": "长花草",
+   "layer": "plant",
+   "pass": "walk",
+   "tags": [
+    "plant",
+    "cuttable",
+    "long",
+    "hide",
+    "slow",
+    "flowers"
+   ],
+   "grow": {
+    "height": [
+     6,
+     12
+    ],
+    "density": 0.22,
+    "colors": [
+     "g1",
+     "g2",
+     "g3",
+     "g3",
+     "g4"
+    ],
+    "under": "g1",
+    "spill": 4,
+    "bloom": [
+     "y2",
+     "pk2",
+     "f0",
+     "o1",
+     "y2"
+    ],
+    "blooming": 0.16,
+    "form": "blades",
+    "width": 1,
+    "stiff": false,
+    "still": false
+   }
+  },
+  {
+   "id": "longgrass",
+   "name": "长草",
+   "layer": "plant",
+   "pass": "walk",
+   "tags": [
+    "plant",
+    "cuttable",
+    "long",
+    "hide",
+    "slow"
+   ],
+   "grow": {
+    "height": [
+     6,
+     12
+    ],
+    "density": 0.22,
+    "colors": [
+     "g1",
+     "g2",
+     "g3",
+     "g3",
+     "g4"
+    ],
+    "under": "g1",
+    "spill": 4,
+    "bloom": [],
+    "blooming": 0.0,
+    "form": "blades",
+    "width": 1,
+    "stiff": false,
+    "still": false
+   }
+  },
+  {
+   "id": "shortgrass_dry",
+   "name": "短枯草",
+   "layer": "plant",
+   "pass": "walk",
+   "tags": [
+    "plant",
+    "cuttable",
+    "short",
+    "dry"
+   ],
+   "grow": {
+    "height": [
+     2,
+     4
+    ],
+    "density": 0.24,
+    "colors": [
+     "w2",
+     "w3",
+     "w4",
+     "g4"
+    ],
+    "under": "w4",
+    "spill": 1,
+    "bloom": [],
+    "blooming": 0.0,
+    "form": "blades",
+    "width": 1,
+    "stiff": false,
+    "still": false
+   }
+  },
+  {
+   "id": "longgrass_dry",
+   "name": "长枯草",
+   "layer": "plant",
+   "pass": "walk",
+   "tags": [
+    "plant",
+    "cuttable",
+    "long",
+    "hide",
+    "slow",
+    "dry",
+    "burns"
+   ],
+   "grow": {
+    "height": [
+     6,
+     13
+    ],
+    "density": 0.2,
+    "colors": [
+     "w2",
+     "w3",
+     "w4",
+     "g4",
+     "k2"
+    ],
+    "under": "w3",
+    "spill": 4,
+    "bloom": [],
+    "blooming": 0.0,
+    "form": "blades",
+    "width": 1,
+    "stiff": false,
+    "still": false
+   }
+  },
+  {
+   "id": "fernbed",
+   "name": "蕨丛",
+   "layer": "plant",
+   "pass": "walk",
+   "tags": [
+    "plant",
+    "cuttable",
+    "hide"
+   ],
+   "grow": {
+    "height": [
+     6,
+     11
+    ],
+    "density": 0.035,
+    "colors": [
+     "g0",
+     "g1",
+     "g2",
+     "g3",
+     "g4"
+    ],
+    "under": "g1",
+    "spill": 3,
+    "bloom": [],
+    "blooming": 0.0,
+    "form": "fronds",
+    "width": 1,
+    "stiff": false,
+    "still": false
+   }
+  },
+  {
+   "id": "moss",
+   "name": "苔藓",
+   "layer": "plant",
+   "pass": "walk",
+   "tags": [
+    "plant",
+    "soft"
+   ],
+   "grow": {
+    "height": [
+     1,
+     1
+    ],
+    "density": 0.3,
+    "colors": [
+     "g2",
+     "g3"
+    ],
+    "under": "g1",
+    "spill": 1,
+    "bloom": [],
+    "blooming": 0.0,
+    "form": "crust",
+    "width": 2,
+    "stiff": false,
+    "still": true
+   }
+  },
+  {
+   "id": "heather",
+   "name": "石南",
+   "layer": "plant",
+   "pass": "walk",
+   "tags": [
+    "plant",
+    "flowers"
+   ],
+   "grow": {
+    "height": [
+     2,
+     4
+    ],
+    "density": 0.22,
+    "colors": [
+     "w1",
+     "g1",
+     "g1"
+    ],
+    "under": "w1",
+    "spill": 2,
+    "bloom": [
+     "pk1",
+     "pk2",
+     "pk1"
+    ],
+    "blooming": 0.55,
+    "form": "tufts",
+    "width": 3,
+    "stiff": false,
+    "still": false
+   }
+  },
+  {
+   "id": "bracken",
+   "name": "欧洲蕨",
+   "layer": "plant",
+   "pass": "walk",
+   "tags": [
+    "plant",
+    "cuttable",
+    "hide",
+    "slow",
+    "burns"
+   ],
+   "grow": {
+    "height": [
+     7,
+     12
+    ],
+    "density": 0.04,
+    "colors": [
+     "w1",
+     "g1",
+     "g2",
+     "w2",
+     "g3"
+    ],
+    "under": "w1",
+    "spill": 4,
+    "bloom": [
+     "o0",
+     "w2"
+    ],
+    "blooming": 0.25,
+    "form": "fronds",
+    "width": 1,
+    "stiff": false,
+    "still": false
+   }
+  },
+  {
+   "id": "gorse",
+   "name": "荆豆",
+   "layer": "plant",
+   "pass": "walk",
+   "tags": [
+    "plant",
+    "thorny",
+    "slow",
+    "burns",
+    "flowers"
+   ],
+   "grow": {
+    "height": [
+     3,
+     6
+    ],
+    "density": 0.18,
+    "colors": [
+     "g0",
+     "g0",
+     "g1"
+    ],
+    "under": "w1",
+    "spill": 2,
+    "bloom": [
+     "y1",
+     "y2"
+    ],
+    "blooming": 0.45,
+    "form": "tufts",
+    "width": 3,
+    "stiff": false,
+    "still": false
+   }
+  },
+  {
+   "id": "marram",
+   "name": "滨草",
+   "layer": "plant",
+   "pass": "walk",
+   "tags": [
+    "plant",
+    "binds_sand"
+   ],
+   "grow": {
+    "height": [
+     5,
+     10
+    ],
+    "density": 0.12,
+    "colors": [
+     "k1",
+     "g3",
+     "g4",
+     "k2"
+    ],
+    "under": "k2",
+    "spill": 3,
+    "bloom": [],
+    "blooming": 0.0,
+    "form": "blades",
+    "width": 1,
+    "stiff": false,
+    "still": false
+   }
+  },
+  {
+   "id": "reeds",
+   "name": "芦苇",
+   "layer": "plant",
+   "pass": "walk",
+   "tags": [
+    "plant",
+    "cuttable",
+    "hide",
+    "slow",
+    "thatch"
+   ],
+   "grow": {
+    "height": [
+     10,
+     15
+    ],
+    "density": 0.16,
+    "colors": [
+     "g1",
+     "g2",
+     "g3",
+     "g4"
+    ],
+    "under": "w1",
+    "spill": 3,
+    "bloom": [
+     "w1",
+     "w0"
+    ],
+    "blooming": 0.5,
+    "form": "blades",
+    "width": 1,
+    "stiff": true,
+    "still": false
+   }
+  },
+  {
+   "id": "rushes",
+   "name": "灯心草",
+   "layer": "plant",
+   "pass": "walk",
+   "tags": [
+    "plant",
+    "cuttable"
+   ],
+   "grow": {
+    "height": [
+     4,
+     7
+    ],
+    "density": 0.26,
+    "colors": [
+     "g0",
+     "g1",
+     "g2"
+    ],
+    "under": "w1",
+    "spill": 2,
+    "bloom": [],
+    "blooming": 0.0,
+    "form": "blades",
+    "width": 1,
+    "stiff": false,
+    "still": false
+   }
+  },
+  {
+   "id": "samphire",
+   "name": "盐角草",
+   "layer": "plant",
+   "pass": "walk",
+   "tags": [
+    "plant",
+    "edible",
+    "salt"
+   ],
+   "grow": {
+    "height": [
+     1,
+     3
+    ],
+    "density": 0.28,
+    "colors": [
+     "g1",
+     "g2",
+     "pk1"
+    ],
+    "under": "w1",
+    "spill": 1,
+    "bloom": [],
+    "blooming": 0.0,
+    "form": "tufts",
+    "width": 2,
+    "stiff": false,
+    "still": false
+   }
+  },
+  {
+   "id": "sealavender",
+   "name": "海薰衣草",
+   "layer": "plant",
+   "pass": "walk",
+   "tags": [
+    "plant",
+    "flowers",
+    "salt"
+   ],
+   "grow": {
+    "height": [
+     3,
+     5
+    ],
+    "density": 0.2,
+    "colors": [
+     "g1",
+     "g2"
+    ],
+    "under": "g2",
+    "spill": 1,
+    "bloom": [
+     "pk2",
+     "f0"
+    ],
+    "blooming": 0.5,
+    "form": "blades",
+    "width": 1,
+    "stiff": false,
+    "still": false
+   }
+  },
+  {
+   "id": "cottongrass",
+   "name": "羊胡子草",
+   "layer": "plant",
+   "pass": "walk",
+   "tags": [
+    "plant",
+    "peat"
+   ],
+   "grow": {
+    "height": [
+     4,
+     7
+    ],
+    "density": 0.16,
+    "colors": [
+     "g1",
+     "g2",
+     "g3"
+    ],
+    "under": "w1",
+    "spill": 2,
+    "bloom": [
+     "f0",
+     "f0",
+     "k2"
+    ],
+    "blooming": 0.5,
+    "form": "blades",
+    "width": 1,
+    "stiff": false,
+    "still": false
+   }
+  },
+  {
+   "id": "sphagnum",
+   "name": "泥炭藓",
+   "layer": "plant",
+   "pass": "walk",
+   "tags": [
+    "plant",
+    "peat",
+    "soft"
+   ],
+   "grow": {
+    "height": [
+     1,
+     1
+    ],
+    "density": 0.3,
+    "colors": [
+     "pk1",
+     "g3",
+     "g2",
+     "pk2"
+    ],
+    "under": "w1",
+    "spill": 1,
+    "bloom": [],
+    "blooming": 0.0,
+    "form": "crust",
+    "width": 2,
+    "stiff": false,
+    "still": true
+   }
+  },
+  {
+   "id": "alpine",
+   "name": "高山垫状植物",
+   "layer": "plant",
+   "pass": "walk",
+   "tags": [
+    "plant",
+    "cold"
+   ],
+   "grow": {
+    "height": [
+     1,
+     2
+    ],
+    "density": 0.12,
+    "colors": [
+     "g1",
+     "g2"
+    ],
+    "under": "s2",
+    "spill": 1,
+    "bloom": [
+     "f0",
+     "pk2"
+    ],
+    "blooming": 0.4,
+    "form": "tufts",
+    "width": 2,
+    "stiff": false,
+    "still": false
+   }
+  },
+  {
+   "id": "lichen",
+   "name": "地衣",
+   "layer": "plant",
+   "pass": "walk",
+   "tags": [
+    "plant",
+    "rock"
+   ],
+   "grow": {
+    "height": [
+     1,
+     1
+    ],
+    "density": 0.07,
+    "colors": [
+     "o1",
+     "g4"
+    ],
+    "under": "s2",
+    "spill": 0,
+    "bloom": [],
+    "blooming": 0.0,
+    "form": "crust",
+    "width": 2,
+    "stiff": false,
+    "still": true
+   }
+  },
+  {
+   "id": "thrift",
+   "name": "海石竹",
+   "layer": "plant",
+   "pass": "walk",
+   "tags": [
+    "plant",
+    "flowers",
+    "salt"
+   ],
+   "grow": {
+    "height": [
+     1,
+     3
+    ],
+    "density": 0.12,
+    "colors": [
+     "g1",
+     "g2"
+    ],
+    "under": "s2",
+    "spill": 1,
+    "bloom": [
+     "pk2",
+     "pk1"
+    ],
+    "blooming": 0.55,
+    "form": "tufts",
+    "width": 2,
+    "stiff": false,
+    "still": false
+   }
+  },
+  {
+   "id": "sea",
+   "name": "海",
+   "layer": "ground",
+   "pass": "swim",
+   "tags": [
+    "water",
+    "sea"
+   ],
+   "rank": 0,
+   "look": {
+    "base": "b1",
+    "patches": [
+     {
+      "color": "b0",
+      "scale": 70.0,
+      "amount": 0.34,
+      "fill": 0.45
+     }
+    ],
+    "specks": [
+     {
+      "color": "b2",
+      "shape": "h4",
+      "density": 0.005,
+      "anim": "drift"
+     },
+     {
+      "color": "b2",
+      "shape": "h2",
+      "density": 0.004,
+      "anim": "drift"
+     },
+     {
+      "color": "b2",
+      "shape": "h3",
+      "density": 0.05,
+      "anim": "flow"
+     },
+     {
+      "color": "b3",
+      "shape": "h2",
+      "density": 0.012,
+      "anim": "flow"
+     }
+    ],
+    "rim": null,
+    "edge": [],
+    "apron": [],
+    "cliff": null,
+    "shore": {
+     "colors": [
+      "b2",
+      "b2",
+      "b2",
+      "b2",
+      "b2",
+      "b2"
+     ],
+     "lap": false
+    },
+    "surf": {
+     "foam": "f0",
+     "water": "b2",
+     "reach": 8,
+     "onto": [
+      "sand",
+      "gravel",
+      "mud",
+      "platform",
+      "shingle"
+     ]
+    },
+    "flows": false,
+    "joins": [],
+    "decor": []
+   }
+  },
+  {
+   "id": "water",
+   "name": "水",
+   "layer": "ground",
+   "pass": "swim",
+   "tags": [
+    "water"
+   ],
+   "rank": 1,
+   "look": {
+    "base": "b1",
+    "patches": [
+     {
+      "color": "b0",
+      "scale": 60.0,
+      "amount": 0.22,
+      "fill": 0.45
+     }
+    ],
+    "specks": [
+     {
+      "color": "b2",
+      "shape": "h4",
+      "density": 0.012,
+      "anim": "flow"
+     },
+     {
+      "color": "b2",
+      "shape": "h2",
+      "density": 0.008,
+      "anim": "flow"
+     },
+     {
+      "color": "b3",
+      "shape": "dot",
+      "density": 0.0012,
+      "anim": "twinkle"
+     }
+    ],
+    "rim": null,
+    "edge": [],
+    "apron": [],
+    "cliff": null,
+    "shore": {
+     "colors": [
+      "b3",
+      "b2",
+      "b2",
+      "b2"
+     ],
+     "lap": true
+    },
+    "surf": null,
+    "flows": true,
+    "joins": [
+     "sea"
+    ],
+    "decor": [
+     {
+      "tile": "lily",
+      "density": 0.03
+     }
+    ],
+    "face": [
+     "f0",
+     "b3",
+     "f0",
+     "b3",
+     "b2"
+    ],
+    "lip": "b3"
+   }
+  },
+  {
+   "id": "lagoon",
+   "name": "潟湖",
+   "layer": "ground",
+   "pass": "swim",
+   "tags": [
+    "water",
+    "lagoon"
+   ],
+   "rank": 2,
+   "look": {
+    "base": "b1",
+    "patches": [
+     {
+      "color": "b2",
+      "scale": 40.0,
+      "amount": 0.35,
+      "fill": 0.45
+     },
+     {
+      "color": "b0",
+      "scale": 30.0,
+      "amount": 0.15,
+      "fill": 0.4
+     }
+    ],
+    "specks": [
+     {
+      "color": "b2",
+      "shape": "h3",
+      "density": 0.008,
+      "anim": "drift"
+     },
+     {
+      "color": "b3",
+      "shape": "dot",
+      "density": 0.002,
+      "anim": "twinkle"
+     }
+    ],
+    "rim": null,
+    "edge": [],
+    "apron": [],
+    "cliff": null,
+    "shore": {
+     "colors": [
+      "b3",
+      "b2",
+      "b2"
+     ],
+     "lap": true
+    },
+    "surf": null,
+    "flows": false,
+    "joins": [],
+    "decor": []
+   }
+  },
+  {
+   "id": "pool",
+   "name": "潮池",
+   "layer": "ground",
+   "pass": "swim",
+   "tags": [
+    "water",
+    "pool"
+   ],
+   "rank": 3,
+   "look": {
+    "base": "b2",
+    "patches": [
+     {
+      "color": "b1",
+      "scale": 6.0,
+      "amount": 0.45,
+      "fill": 0.5
+     }
+    ],
+    "specks": [
+     {
+      "color": "b3",
+      "shape": "dot",
+      "density": 0.01,
+      "anim": "twinkle"
+     },
+     {
+      "color": "f0",
+      "shape": "dot",
+      "density": 0.002,
+      "anim": "twinkle"
+     }
+    ],
+    "rim": null,
+    "edge": [],
+    "apron": [],
+    "cliff": null,
+    "shore": {
+     "colors": [
+      "s3",
+      "b3"
+     ],
+     "lap": false
+    },
+    "surf": null,
+    "flows": false,
+    "joins": [],
+    "decor": []
+   }
+  },
+  {
+   "id": "bogpool",
+   "name": "沼池",
+   "layer": "ground",
+   "pass": "swim",
+   "tags": [
+    "water",
+    "peat"
+   ],
+   "rank": 4,
+   "look": {
+    "base": "b0",
+    "patches": [
+     {
+      "color": "n0",
+      "scale": 8.0,
+      "amount": 0.4,
+      "fill": 0.5
+     }
+    ],
+    "specks": [
+     {
+      "color": "b2",
+      "shape": "h2",
+      "density": 0.006,
+      "anim": "twinkle"
+     },
+     {
+      "color": "b3",
+      "shape": "dot",
+      "density": 0.002,
+      "anim": "twinkle"
+     }
+    ],
+    "rim": null,
+    "edge": [],
+    "apron": [],
+    "cliff": null,
+    "shore": {
+     "colors": [
+      "w0",
+      "w1"
+     ],
+     "lap": false
+    },
+    "surf": null,
+    "flows": false,
+    "joins": [],
+    "decor": []
+   }
+  },
+  {
+   "id": "ford",
+   "name": "浅滩",
+   "layer": "ground",
+   "pass": "walk",
+   "tags": [
+    "water",
+    "ford"
+   ],
+   "rank": 5,
+   "look": {
+    "base": "b2",
+    "patches": [
+     {
+      "color": "b1",
+      "scale": 10.0,
+      "amount": 0.35,
+      "fill": 0.5
+     }
+    ],
+    "specks": [
+     {
+      "color": "s3",
+      "shape": "h2",
+      "density": 0.03,
+      "anim": null
+     },
+     {
+      "color": "s2",
+      "shape": "dot",
+      "density": 0.03,
+      "anim": null
+     },
+     {
+      "color": "b3",
+      "shape": "h3",
+      "density": 0.02,
+      "anim": "flow"
+     },
+     {
+      "color": "f0",
+      "shape": "dot",
+      "density": 0.006,
+      "anim": "flow"
+     }
+    ],
+    "rim": null,
+    "edge": [],
+    "apron": [],
+    "cliff": null,
+    "shore": null,
+    "surf": null,
+    "flows": true,
+    "joins": [
+     "water",
+     "sea"
+    ],
+    "decor": [],
+    "face": [
+     "f0",
+     "b3",
+     "f0",
+     "b3",
+     "b2"
+    ],
+    "lip": "b3"
+   }
+  },
+  {
+   "id": "platform",
+   "name": "海蚀平台",
+   "layer": "ground",
+   "pass": "walk",
+   "tags": [
+    "land",
+    "rock",
+    "shore"
+   ],
+   "rank": 6,
+   "look": {
+    "base": "s1",
+    "patches": [
+     {
+      "color": "s0",
+      "scale": 10.0,
+      "amount": 0.4,
+      "fill": 0.5
+     },
+     {
+      "color": "b1",
+      "scale": 14.0,
+      "amount": 0.22,
+      "fill": 0.35
+     }
+    ],
+    "specks": [
+     {
+      "color": "s2",
+      "shape": "h4",
+      "density": 0.02,
+      "anim": null
+     },
+     {
+      "color": "s0",
+      "shape": "diag",
+      "density": 0.006,
+      "anim": null
+     },
+     {
+      "color": "b2",
+      "shape": "h2",
+      "density": 0.006,
+      "anim": "twinkle"
+     }
+    ],
+    "rim": null,
+    "edge": [
+     {
+      "color": "s0",
+      "width": 2.0,
+      "wobble": 1.0,
+      "density": 1.0,
+      "shape": "dot"
+     }
+    ],
+    "apron": [],
+    "cliff": null,
+    "shore": null,
+    "surf": null,
+    "flows": false,
+    "joins": [],
+    "decor": [],
+    "face": [
+     "s1",
+     "s0",
+     "s0"
+    ],
+    "lip": "s2"
+   }
+  },
+  {
+   "id": "mud",
+   "name": "泥岸",
+   "layer": "ground",
+   "pass": "walk",
+   "tags": [
+    "land",
+    "clay"
+   ],
+   "rank": 7,
+   "look": {
+    "base": "w1",
+    "patches": [
+     {
+      "color": "w0",
+      "scale": 16.0,
+      "amount": 0.35,
+      "fill": 0.55
+     },
+     {
+      "color": "w2",
+      "scale": 20.0,
+      "amount": 0.3,
+      "fill": 0.4
+     }
+    ],
+    "specks": [
+     {
+      "color": "b2",
+      "shape": "h2",
+      "density": 0.005,
+      "anim": "twinkle"
+     },
+     {
+      "color": "w2",
+      "shape": "dot",
+      "density": 0.012,
+      "anim": null
+     }
+    ],
+    "rim": null,
+    "edge": [
+     {
+      "color": "w0",
+      "width": 2.0,
+      "wobble": 1.5,
+      "density": 1.0,
+      "shape": "dot"
+     }
+    ],
+    "apron": [
+     {
+      "color": "w1",
+      "width": 5.0,
+      "wobble": 2.0,
+      "density": 0.3,
+      "shape": "h2",
+      "over": []
+     }
+    ],
+    "cliff": null,
+    "shore": null,
+    "surf": null,
+    "flows": false,
+    "joins": [],
+    "decor": [],
+    "face": [
+     "w1",
+     "w0",
+     "w0"
+    ],
+    "lip": "w2"
+   }
+  },
+  {
+   "id": "saltmarsh",
+   "name": "盐沼",
+   "layer": "ground",
+   "pass": "walk",
+   "tags": [
+    "land",
+    "marsh",
+    "salt"
+   ],
+   "rank": 8,
+   "look": {
+    "base": "g2",
+    "patches": [
+     {
+      "color": "k0",
+      "scale": 12.0,
+      "amount": 0.35,
+      "fill": 0.45
+     },
+     {
+      "color": "w1",
+      "scale": 9.0,
+      "amount": 0.25,
+      "fill": 0.4
+     },
+     {
+      "color": "g1",
+      "scale": 20.0,
+      "amount": 0.3,
+      "fill": 0.4
+     }
+    ],
+    "specks": [
+     {
+      "color": "pk1",
+      "shape": "dot",
+      "density": 0.012,
+      "anim": null
+     },
+     {
+      "color": "g3",
+      "shape": "v2",
+      "density": 0.01,
+      "anim": "gust"
+     },
+     {
+      "color": "b2",
+      "shape": "h2",
+      "density": 0.004,
+      "anim": "twinkle"
+     }
+    ],
+    "rim": null,
+    "edge": [
+     {
+      "color": "w1",
+      "width": 2.0,
+      "wobble": 1.5,
+      "density": 1.0,
+      "shape": "dot"
+     }
+    ],
+    "apron": [
+     {
+      "color": "g2",
+      "width": 4.0,
+      "wobble": 2.0,
+      "density": 0.3,
+      "shape": "v2",
+      "over": [
+       "mud",
+       "sand"
+      ]
+     }
+    ],
+    "cliff": null,
+    "shore": null,
+    "surf": null,
+    "flows": false,
+    "joins": [],
+    "decor": [],
+    "face": [
+     "w1",
+     "w0",
+     "w0"
+    ],
+    "lip": "g3"
+   }
+  },
+  {
+   "id": "sand",
+   "name": "沙地",
+   "layer": "ground",
+   "pass": "walk",
+   "tags": [
+    "land"
+   ],
+   "rank": 9,
+   "look": {
+    "base": "k2",
+    "patches": [
+     {
+      "color": "k1",
+      "scale": 22.0,
+      "amount": 0.35,
+      "fill": 0.3
+     }
+    ],
+    "specks": [
+     {
+      "color": "k1",
+      "shape": "dot",
+      "density": 0.01,
+      "anim": null
+     },
+     {
+      "color": "f0",
+      "shape": "h2",
+      "density": 0.004,
+      "anim": null
+     }
+    ],
+    "rim": null,
+    "edge": [
+     {
+      "color": "k1",
+      "width": 3.0,
+      "wobble": 2.0,
+      "density": 1.0,
+      "shape": "dot"
+     },
+     {
+      "color": "k0",
+      "width": 2.0,
+      "wobble": 1.0,
+      "density": 0.45,
+      "shape": "dot"
+     }
+    ],
+    "apron": [],
+    "cliff": null,
+    "shore": null,
+    "surf": null,
+    "flows": false,
+    "joins": [],
+    "decor": [],
+    "face": [
+     "k1",
+     "k1",
+     "k0"
+    ],
+    "lip": "f0"
+   }
+  },
+  {
+   "id": "shingle",
+   "name": "卵石脊",
+   "layer": "ground",
+   "pass": "walk",
+   "tags": [
+    "land",
+    "flint",
+    "shore"
+   ],
+   "rank": 10,
+   "look": {
+    "base": "s2",
+    "patches": [
+     {
+      "color": "s3",
+      "scale": 8.0,
+      "amount": 0.5,
+      "fill": 0.5
+     },
+     {
+      "color": "k1",
+      "scale": 14.0,
+      "amount": 0.3,
+      "fill": 0.4
+     }
+    ],
+    "specks": [
+     {
+      "color": "s4",
+      "shape": "dot",
+      "density": 0.03,
+      "anim": null
+     },
+     {
+      "color": "s1",
+      "shape": "dot",
+      "density": 0.025,
+      "anim": null
+     },
+     {
+      "color": "k2",
+      "shape": "h2",
+      "density": 0.02,
+      "anim": null
+     },
+     {
+      "color": "s3",
+      "shape": "h4",
+      "density": 0.012,
+      "anim": null
+     }
+    ],
+    "rim": null,
+    "edge": [
+     {
+      "color": "s1",
+      "width": 2.0,
+      "wobble": 1.5,
+      "density": 1.0,
+      "shape": "dot"
+     }
+    ],
+    "apron": [
+     {
+      "color": "s3",
+      "width": 4.0,
+      "wobble": 2.0,
+      "density": 0.25,
+      "shape": "dot",
+      "over": [
+       "sand"
+      ]
+     }
+    ],
+    "cliff": null,
+    "shore": null,
+    "surf": null,
+    "flows": false,
+    "joins": [],
+    "decor": [
+     {
+      "tile": "pebble",
+      "density": 0.12
+     }
+    ],
+    "face": [
+     "s2",
+     "s1",
+     "s0"
+    ],
+    "lip": "s3"
+   }
+  },
+  {
+   "id": "gravel",
+   "name": "河滩",
+   "layer": "ground",
+   "pass": "walk",
+   "tags": [
+    "land",
+    "flint"
+   ],
+   "rank": 11,
+   "look": {
+    "base": "k1",
+    "patches": [
+     {
+      "color": "s3",
+      "scale": 12.0,
+      "amount": 0.55,
+      "fill": 0.5
+     },
+     {
+      "color": "k0",
+      "scale": 18.0,
+      "amount": 0.3,
+      "fill": 0.35
+     }
+    ],
+    "specks": [
+     {
+      "color": "s2",
+      "shape": "h2",
+      "density": 0.022,
+      "anim": null
+     },
+     {
+      "color": "s4",
+      "shape": "dot",
+      "density": 0.012,
+      "anim": null
+     },
+     {
+      "color": "s1",
+      "shape": "dot",
+      "density": 0.014,
+      "anim": null
+     },
+     {
+      "color": "k2",
+      "shape": "h2",
+      "density": 0.02,
+      "anim": null
+     }
+    ],
+    "rim": null,
+    "edge": [
+     {
+      "color": "s1",
+      "width": 4.0,
+      "wobble": 2.0,
+      "density": 0.5,
+      "shape": "h2"
+     }
+    ],
+    "apron": [
+     {
+      "color": "s3",
+      "width": 6.0,
+      "wobble": 2.0,
+      "density": 0.28,
+      "shape": "h2",
+      "over": [
+       "sand",
+       "mud"
+      ]
+     },
+     {
+      "color": "s1",
+      "width": 4.0,
+      "wobble": 1.0,
+      "density": 0.15,
+      "shape": "dot",
+      "over": [
+       "sand",
+       "mud"
+      ]
+     }
+    ],
+    "cliff": null,
+    "shore": null,
+    "surf": null,
+    "flows": false,
+    "joins": [],
+    "decor": [
+     {
+      "tile": "pebble",
+      "density": 0.18
+     }
+    ],
+    "face": [
+     "s2",
+     "s1",
+     "s1",
+     "s0"
+    ],
+    "lip": "s3"
+   }
+  },
+  {
+   "id": "dirt",
+   "name": "土路",
+   "layer": "ground",
+   "pass": "walk",
+   "tags": [
+    "land",
+    "path"
+   ],
+   "rank": 12,
+   "look": {
+    "base": "w3",
+    "patches": [
+     {
+      "color": "w4",
+      "scale": 16.0,
+      "amount": 0.3,
+      "fill": 0.5
+     }
+    ],
+    "specks": [
+     {
+      "color": "w2",
+      "shape": "h2",
+      "density": 0.012,
+      "anim": null
+     },
+     {
+      "color": "w2",
+      "shape": "dot",
+      "density": 0.01,
+      "anim": null
+     }
+    ],
+    "rim": null,
+    "edge": [
+     {
+      "color": "w2",
+      "width": 2.0,
+      "wobble": 1.5,
+      "density": 1.0,
+      "shape": "dot"
+     }
+    ],
+    "apron": [],
+    "cliff": {
+     "colors": [
+      "w2",
+      "w1",
+      "w0"
+     ],
+     "over": [
+      "water"
+     ],
+     "cracks": false
+    },
+    "shore": null,
+    "surf": null,
+    "flows": false,
+    "joins": [],
+    "decor": [
+     {
+      "tile": "pebble",
+      "density": 0.04
+     }
+    ],
+    "face": [
+     "w2",
+     "w1",
+     "w1",
+     "w0"
+    ],
+    "lip": "w4"
+   }
+  },
+  {
+   "id": "drygrass",
+   "name": "荒草地",
+   "layer": "ground",
+   "pass": "walk",
+   "tags": [
+    "land",
+    "grass",
+    "dry"
+   ],
+   "rank": 13,
+   "look": {
+    "base": "g4",
+    "patches": [
+     {
+      "color": "w4",
+      "scale": 22.0,
+      "amount": 0.45,
+      "fill": 0.45
+     },
+     {
+      "color": "g3",
+      "scale": 30.0,
+      "amount": 0.3,
+      "fill": 0.35
+     },
+     {
+      "color": "k1",
+      "scale": 12.0,
+      "amount": 0.18,
+      "fill": 0.35
+     }
+    ],
+    "specks": [
+     {
+      "color": "w3",
+      "shape": "v2",
+      "density": 0.014,
+      "anim": null
+     },
+     {
+      "color": "k2",
+      "shape": "dot",
+      "density": 0.006,
+      "anim": null
+     },
+     {
+      "color": "y2",
+      "shape": "h3",
+      "density": 0.1,
+      "anim": "gust"
+     },
+     {
+      "color": "k2",
+      "shape": "h2",
+      "density": 0.05,
+      "anim": "gust"
+     }
+    ],
+    "rim": null,
+    "edge": [
+     {
+      "color": "w4",
+      "width": 3.0,
+      "wobble": 2.5,
+      "density": 1.0,
+      "shape": "dot"
+     }
+    ],
+    "apron": [
+     {
+      "color": "g4",
+      "width": 6.0,
+      "wobble": 3.0,
+      "density": 0.4,
+      "shape": "v2",
+      "over": [
+       "sand",
+       "gravel",
+       "mud",
+       "dirt"
+      ]
+     }
+    ],
+    "cliff": {
+     "colors": [
+      "w2",
+      "w1",
+      "w0"
+     ],
+     "over": [
+      "water"
+     ],
+     "cracks": false
+    },
+    "shore": null,
+    "surf": null,
+    "flows": false,
+    "joins": [],
+    "decor": [
+     {
+      "tile": "tuft",
+      "density": 0.06
+     }
+    ],
+    "face": [
+     "w3",
+     "w2",
+     "w2",
+     "w1"
+    ],
+    "lip": "w4"
+   }
+  },
+  {
+   "id": "grass",
+   "name": "草甸",
+   "layer": "ground",
+   "pass": "walk",
+   "tags": [
+    "land"
+   ],
+   "rank": 14,
+   "look": {
+    "base": "g2",
+    "patches": [
+     {
+      "color": "g3",
+      "scale": 26.0,
+      "amount": 0.5,
+      "fill": 0.4
+     },
+     {
+      "color": "g1",
+      "scale": 40.0,
+      "amount": 0.2,
+      "fill": 0.3
+     }
+    ],
+    "specks": [
+     {
+      "color": "g1",
+      "shape": "v2",
+      "density": 0.012,
+      "anim": null
+     },
+     {
+      "color": "g4",
+      "shape": "dot",
+      "density": 0.004,
+      "anim": null
+     },
+     {
+      "color": "g3",
+      "shape": "v2",
+      "density": 0.012,
+      "anim": null
+     },
+     {
+      "color": "g3",
+      "shape": "h3",
+      "density": 0.16,
+      "anim": "gust"
+     },
+     {
+      "color": "g4",
+      "shape": "h2",
+      "density": 0.06,
+      "anim": "gust"
+     }
+    ],
+    "rim": null,
+    "edge": [
+     {
+      "color": "g3",
+      "width": 3.0,
+      "wobble": 2.5,
+      "density": 1.0,
+      "shape": "dot"
+     },
+     {
+      "color": "g4",
+      "width": 5.0,
+      "wobble": 2.0,
+      "density": 0.3,
+      "shape": "v2"
+     }
+    ],
+    "apron": [
+     {
+      "color": "g2",
+      "width": 7.0,
+      "wobble": 3.0,
+      "density": 0.5,
+      "shape": "v2",
+      "over": [
+       "sand",
+       "gravel",
+       "mud",
+       "dirt"
+      ]
+     },
+     {
+      "color": "g3",
+      "width": 4.0,
+      "wobble": 2.0,
+      "density": 0.35,
+      "shape": "v2",
+      "over": [
+       "sand",
+       "gravel",
+       "mud",
+       "dirt"
+      ]
+     }
+    ],
+    "cliff": {
+     "colors": [
+      "w2",
+      "w1",
+      "w0"
+     ],
+     "over": [
+      "water"
+     ],
+     "cracks": false
+    },
+    "shore": null,
+    "surf": null,
+    "flows": false,
+    "joins": [],
+    "decor": [
+     {
+      "tile": "tuft",
+      "density": 0.14
+     },
+     {
+      "tile": "flower",
+      "density": 0.03
+     }
+    ],
+    "face": [
+     "w2",
+     "w2",
+     "w1",
+     "w1",
+     "w0"
+    ],
+    "lip": "g3"
+   }
+  },
+  {
+   "id": "bog",
+   "name": "泥炭沼",
+   "layer": "ground",
+   "pass": "walk",
+   "tags": [
+    "land",
+    "peat",
+    "marsh"
+   ],
+   "rank": 15,
+   "look": {
+    "base": "w1",
+    "patches": [
+     {
+      "color": "g1",
+      "scale": 18.0,
+      "amount": 0.45,
+      "fill": 0.45
+     },
+     {
+      "color": "pk1",
+      "scale": 10.0,
+      "amount": 0.2,
+      "fill": 0.4
+     },
+     {
+      "color": "g3",
+      "scale": 12.0,
+      "amount": 0.18,
+      "fill": 0.35
+     }
+    ],
+    "specks": [
+     {
+      "color": "f0",
+      "shape": "dot",
+      "density": 0.012,
+      "anim": "gust"
+     },
+     {
+      "color": "g3",
+      "shape": "v2",
+      "density": 0.008,
+      "anim": null
+     },
+     {
+      "color": "w0",
+      "shape": "h2",
+      "density": 0.008,
+      "anim": null
+     }
+    ],
+    "rim": null,
+    "edge": [
+     {
+      "color": "w0",
+      "width": 2.0,
+      "wobble": 2.0,
+      "density": 0.5,
+      "shape": "dot"
+     }
+    ],
+    "apron": [
+     {
+      "color": "w1",
+      "width": 4.0,
+      "wobble": 2.0,
+      "density": 0.25,
+      "shape": "dot",
+      "over": [
+       "grass",
+       "heath"
+      ]
+     }
+    ],
+    "cliff": null,
+    "shore": null,
+    "surf": null,
+    "flows": false,
+    "joins": [],
+    "decor": [],
+    "face": [
+     "w1",
+     "w0",
+     "w0"
+    ],
+    "lip": "g3"
+   }
+  },
+  {
+   "id": "heath",
+   "name": "荒坡",
+   "layer": "ground",
+   "pass": "walk",
+   "tags": [
+    "land"
+   ],
+   "rank": 16,
+   "look": {
+    "base": "k0",
+    "patches": [
+     {
+      "color": "g2",
+      "scale": 20.0,
+      "amount": 0.5,
+      "fill": 0.45
+     },
+     {
+      "color": "w1",
+      "scale": 26.0,
+      "amount": 0.35,
+      "fill": 0.4
+     }
+    ],
+    "specks": [
+     {
+      "color": "w2",
+      "shape": "dot",
+      "density": 0.02,
+      "anim": null
+     },
+     {
+      "color": "pk1",
+      "shape": "dot",
+      "density": 0.008,
+      "anim": null
+     },
+     {
+      "color": "g3",
+      "shape": "v2",
+      "density": 0.006,
+      "anim": "gust"
+     },
+     {
+      "color": "w0",
+      "shape": "h2",
+      "density": 0.006,
+      "anim": null
+     }
+    ],
+    "rim": null,
+    "edge": [
+     {
+      "color": "w1",
+      "width": 3.0,
+      "wobble": 2.0,
+      "density": 0.4,
+      "shape": "dot"
+     }
+    ],
+    "apron": [
+     {
+      "color": "g1",
+      "width": 5.0,
+      "wobble": 2.0,
+      "density": 0.35,
+      "shape": "dot",
+      "over": [
+       "grass"
+      ]
+     }
+    ],
+    "cliff": null,
+    "shore": null,
+    "surf": null,
+    "flows": false,
+    "joins": [],
+    "decor": [
+     {
+      "tile": "fern",
+      "density": 0.05
+     },
+     {
+      "tile": "pebble",
+      "density": 0.05
+     }
+    ],
+    "face": [
+     "w1",
+     "w1",
+     "w0",
+     "w0"
+    ],
+    "lip": "w2"
+   }
+  },
+  {
+   "id": "forest",
+   "name": "林地",
+   "layer": "ground",
+   "pass": "walk",
+   "tags": [
+    "land"
+   ],
+   "rank": 17,
+   "look": {
+    "base": "g1",
+    "patches": [
+     {
+      "color": "g0",
+      "scale": 34.0,
+      "amount": 0.55,
+      "fill": 0.55
+     },
+     {
+      "color": "w1",
+      "scale": 15.0,
+      "amount": 0.35,
+      "fill": 0.3
+     }
+    ],
+    "specks": [
+     {
+      "color": "w1",
+      "shape": "h2",
+      "density": 0.012,
+      "anim": null
+     },
+     {
+      "color": "w2",
+      "shape": "dot",
+      "density": 0.005,
+      "anim": null
+     },
+     {
+      "color": "g0",
+      "shape": "l",
+      "density": 0.01,
+      "anim": null
+     },
+     {
+      "color": "g2",
+      "shape": "v2",
+      "density": 0.004,
+      "anim": null
+     }
+    ],
+    "rim": null,
+    "edge": [
+     {
+      "color": "g0",
+      "width": 5.0,
+      "wobble": 3.0,
+      "density": 1.0,
+      "shape": "dot"
+     }
+    ],
+    "apron": [
+     {
+      "color": "g1",
+      "width": 8.0,
+      "wobble": 3.0,
+      "density": 0.55,
+      "shape": "l",
+      "over": [
+       "grass"
+      ]
+     },
+     {
+      "color": "g0",
+      "width": 3.0,
+      "wobble": 2.0,
+      "density": 0.4,
+      "shape": "h2",
+      "over": [
+       "grass"
+      ]
+     },
+     {
+      "color": "w1",
+      "width": 6.0,
+      "wobble": 2.0,
+      "density": 0.06,
+      "shape": "dot",
+      "over": [
+       "grass",
+       "sand",
+       "gravel",
+       "dirt"
+      ]
+     }
+    ],
+    "cliff": {
+     "colors": [
+      "w2",
+      "w1",
+      "w0"
+     ],
+     "over": [
+      "water"
+     ],
+     "cracks": false
+    },
+    "shore": null,
+    "surf": null,
+    "flows": false,
+    "joins": [],
+    "decor": [
+     {
+      "tile": "fern",
+      "density": 0.12
+     },
+     {
+      "tile": "mushroom",
+      "density": 0.03
+     }
+    ],
+    "face": [
+     "w1",
+     "w1",
+     "w0",
+     "w0",
+     "n0"
+    ],
+    "lip": "g2"
+   }
+  },
+  {
+   "id": "scree",
+   "name": "碎石坡",
+   "layer": "ground",
+   "pass": "walk",
+   "tags": [
+    "land",
+    "loose"
+   ],
+   "rank": 18,
+   "look": {
+    "base": "s1",
+    "patches": [
+     {
+      "color": "s2",
+      "scale": 12.0,
+      "amount": 0.5,
+      "fill": 0.55
+     }
+    ],
+    "specks": [
+     {
+      "color": "s3",
+      "shape": "step",
+      "density": 0.03,
+      "anim": null
+     },
+     {
+      "color": "s0",
+      "shape": "l",
+      "density": 0.02,
+      "anim": null
+     },
+     {
+      "color": "s2",
+      "shape": "h2",
+      "density": 0.03,
+      "anim": null
+     },
+     {
+      "color": "s4",
+      "shape": "dot",
+      "density": 0.006,
+      "anim": null
+     }
+    ],
+    "rim": null,
+    "edge": [
+     {
+      "color": "s0",
+      "width": 2.0,
+      "wobble": 2.0,
+      "density": 0.5,
+      "shape": "dot"
+     }
+    ],
+    "apron": [
+     {
+      "color": "s2",
+      "width": 6.0,
+      "wobble": 2.0,
+      "density": 0.25,
+      "shape": "h2",
+      "over": [
+       "grass",
+       "heath",
+       "forest",
+       "sand",
+       "gravel",
+       "mud"
+      ]
+     }
+    ],
+    "cliff": null,
+    "shore": null,
+    "surf": null,
+    "flows": false,
+    "joins": [],
+    "decor": [
+     {
+      "tile": "pebble",
+      "density": 0.2
+     }
+    ],
+    "face": [
+     "s2",
+     "s1",
+     "s0"
+    ],
+    "lip": "s3"
+   }
+  },
+  {
+   "id": "mountain",
+   "name": "岩台",
+   "layer": "ground",
+   "pass": "walk",
+   "tags": [
+    "land",
+    "no_build"
+   ],
+   "rank": 19,
+   "look": {
+    "base": "s2",
+    "patches": [
+     {
+      "color": "s3",
+      "scale": 30.0,
+      "amount": 0.32,
+      "fill": 0.55
+     },
+     {
+      "color": "s1",
+      "scale": 16.0,
+      "amount": 0.2,
+      "fill": 0.45
+     }
+    ],
+    "specks": [
+     {
+      "color": "s1",
+      "shape": "h4",
+      "density": 0.012,
+      "anim": null
+     },
+     {
+      "color": "s3",
+      "shape": "h3",
+      "density": 0.006,
+      "anim": null
+     },
+     {
+      "color": "s0",
+      "shape": "diag",
+      "density": 0.004,
+      "anim": null
+     }
+    ],
+    "rim": "s4",
+    "edge": [],
+    "apron": [
+     {
+      "color": "s3",
+      "width": 8.0,
+      "wobble": 3.0,
+      "density": 0.3,
+      "shape": "h2",
+      "over": [
+       "grass",
+       "forest",
+       "sand",
+       "gravel",
+       "dirt",
+       "mud"
+      ]
+     },
+     {
+      "color": "s1",
+      "width": 6.0,
+      "wobble": 2.0,
+      "density": 0.2,
+      "shape": "h2",
+      "over": [
+       "grass",
+       "forest",
+       "sand",
+       "gravel",
+       "dirt",
+       "mud"
+      ]
+     }
+    ],
+    "cliff": {
+     "colors": [
+      "s1",
+      "s1",
+      "s2",
+      "s1",
+      "s1",
+      "s1",
+      "s0",
+      "s0",
+      "n0"
+     ],
+     "over": [],
+     "cracks": true
+    },
+    "shore": null,
+    "surf": null,
+    "flows": false,
+    "joins": [],
+    "decor": [
+     {
+      "tile": "pebble",
+      "density": 0.08
+     }
+    ],
+    "face": [
+     "s2",
+     "s1",
+     "s1",
+     "s0",
+     "s0",
+     "n0"
+    ],
+    "lip": "s4"
+   }
+  },
+  {
+   "id": "copper",
+   "name": "铜矿露头",
+   "layer": "ground",
+   "pass": "walk",
+   "tags": [
+    "land",
+    "rock",
+    "ore",
+    "copper",
+    "resource",
+    "no_build"
+   ],
+   "rank": 20,
+   "look": {
+    "base": "s2",
+    "patches": [
+     {
+      "color": "g3",
+      "scale": 6.0,
+      "amount": 0.35,
+      "fill": 0.5
+     },
+     {
+      "color": "b3",
+      "scale": 8.0,
+      "amount": 0.25,
+      "fill": 0.45
+     },
+     {
+      "color": "o0",
+      "scale": 10.0,
+      "amount": 0.18,
+      "fill": 0.4
+     }
+    ],
+    "specks": [
+     {
+      "color": "s0",
+      "shape": "h3",
+      "density": 0.012,
+      "anim": null
+     },
+     {
+      "color": "b3",
+      "shape": "dot",
+      "density": 0.008,
+      "anim": "twinkle"
+     }
+    ],
+    "rim": "s4",
+    "edge": [],
+    "apron": [
+     {
+      "color": "g3",
+      "width": 4.0,
+      "wobble": 2.0,
+      "density": 0.12,
+      "shape": "dot",
+      "over": [
+       "scree",
+       "heath",
+       "grass"
+      ]
+     }
+    ],
+    "cliff": null,
+    "shore": null,
+    "surf": null,
+    "flows": false,
+    "joins": [],
+    "decor": [],
+    "face": [
+     "s2",
+     "g2",
+     "s1",
+     "s1",
+     "s0",
+     "n0"
+    ],
+    "lip": "s4"
+   }
+  },
+  {
+   "id": "snow",
+   "name": "雪地",
+   "layer": "ground",
+   "pass": "walk",
+   "tags": [
+    "land",
+    "snow",
+    "cold",
+    "slow"
+   ],
+   "rank": 21,
+   "look": {
+    "base": "f0",
+    "patches": [
+     {
+      "color": "t2",
+      "scale": 30.0,
+      "amount": 0.4,
+      "fill": 0.5
+     },
+     {
+      "color": "s4",
+      "scale": 14.0,
+      "amount": 0.2,
+      "fill": 0.35
+     }
+    ],
+    "specks": [
+     {
+      "color": "b3",
+      "shape": "dot",
+      "density": 0.006,
+      "anim": "twinkle"
+     },
+     {
+      "color": "t1",
+      "shape": "h3",
+      "density": 0.01,
+      "anim": null
+     },
+     {
+      "color": "t2",
+      "shape": "h2",
+      "density": 0.05,
+      "anim": "gust"
+     }
+    ],
+    "rim": null,
+    "edge": [
+     {
+      "color": "t1",
+      "width": 3.0,
+      "wobble": 2.5,
+      "density": 1.0,
+      "shape": "dot"
+     },
+     {
+      "color": "t2",
+      "width": 5.0,
+      "wobble": 3.0,
+      "density": 0.4,
+      "shape": "dot"
+     }
+    ],
+    "apron": [],
+    "cliff": null,
+    "shore": null,
+    "surf": null,
+    "flows": false,
+    "joins": [],
+    "decor": [],
+    "face": [
+     "t1",
+     "s3",
+     "s2",
+     "s1"
+    ],
+    "lip": "f0"
+   }
+  },
+  {
+   "id": "stack",
+   "name": "海蚀柱",
+   "layer": "ground",
+   "pass": "block",
+   "tags": [
+    "rock",
+    "no_build"
+   ],
+   "rank": 22,
+   "look": {
+    "base": "s2",
+    "patches": [
+     {
+      "color": "s3",
+      "scale": 10.0,
+      "amount": 0.3,
+      "fill": 0.5
+     }
+    ],
+    "specks": [
+     {
+      "color": "s1",
+      "shape": "h4",
+      "density": 0.015,
+      "anim": null
+     }
+    ],
+    "rim": "s4",
+    "edge": [],
+    "apron": [],
+    "cliff": {
+     "colors": [
+      "s1",
+      "s3",
+      "s1",
+      "s1",
+      "s3",
+      "s1",
+      "s1",
+      "s0",
+      "n0"
+     ],
+     "over": [],
+     "cracks": false
+    },
+    "shore": null,
+    "surf": null,
+    "flows": false,
+    "joins": [],
+    "decor": [],
+    "face": [
+     "s1",
+     "s3",
+     "s1",
+     "s1",
+     "s0",
+     "n0"
+    ],
+    "lip": "s4"
+   }
+  },
+  {
+   "id": "cave",
+   "name": "海蚀洞",
+   "layer": "ground",
+   "pass": "walk",
+   "tags": [
+    "cave",
+    "no_build"
+   ],
+   "rank": 23,
+   "look": {
+    "base": "n0",
+    "patches": [
+     {
+      "color": "s0",
+      "scale": 4.0,
+      "amount": 0.3,
+      "fill": 0.45
+     }
+    ],
+    "specks": [
+     {
+      "color": "b1",
+      "shape": "h2",
+      "density": 0.006,
+      "anim": "twinkle"
+     }
+    ],
+    "rim": "s0",
+    "edge": [],
+    "apron": [],
+    "cliff": null,
+    "shore": null,
+    "surf": null,
+    "flows": false,
+    "joins": [],
+    "decor": [],
+    "face": [
+     "n0",
+     "n0",
+     "s0"
+    ],
+    "lip": "s1"
+   }
+  },
+  {
+   "id": "crag",
+   "name": "崖岸",
+   "layer": "ground",
+   "pass": "walk",
+   "tags": [
+    "land",
+    "no_build",
+    "seacliff"
+   ],
+   "rank": 24,
+   "look": {
+    "base": "s2",
+    "patches": [
+     {
+      "color": "s3",
+      "scale": 30.0,
+      "amount": 0.28,
+      "fill": 0.55
+     },
+     {
+      "color": "s1",
+      "scale": 14.0,
+      "amount": 0.25,
+      "fill": 0.5
+     }
+    ],
+    "specks": [
+     {
+      "color": "s1",
+      "shape": "h4",
+      "density": 0.012,
+      "anim": null
+     }
+    ],
+    "rim": "s4",
+    "edge": [],
+    "apron": [
+     {
+      "color": "s3",
+      "width": 5.0,
+      "wobble": 2.0,
+      "density": 0.15,
+      "shape": "h2",
+      "over": []
+     }
+    ],
+    "cliff": {
+     "colors": [
+      "s1",
+      "s3",
+      "s1",
+      "s1",
+      "s3",
+      "s1",
+      "s3",
+      "s1",
+      "s1",
+      "s1",
+      "s3",
+      "s1",
+      "s1",
+      "s1",
+      "s0",
+      "n0"
+     ],
+     "over": [],
+     "cracks": false
+    },
+    "shore": null,
+    "surf": null,
+    "flows": false,
+    "joins": [],
+    "decor": [],
+    "face": [
+     "s1",
+     "s3",
+     "s1",
+     "s1",
+     "s3",
+     "s0"
+    ],
+    "lip": "s4"
+   }
+  },
+  {
+   "id": "paving",
+   "name": "石铺地",
+   "layer": "ground",
+   "pass": "walk",
+   "tags": [
+    "paved"
+   ],
+   "rank": 25,
+   "look": {
+    "base": "s1",
+    "patches": [
+     {
+      "color": "s0",
+      "scale": 18.0,
+      "amount": 0.3,
+      "fill": 1.0
+     },
+     {
+      "color": "s2",
+      "scale": 30.0,
+      "amount": 0.25,
+      "fill": 0.5
+     }
+    ],
+    "specks": [
+     {
+      "color": "s0",
+      "shape": "h4",
+      "density": 0.006,
+      "anim": null
+     },
+     {
+      "color": "s2",
+      "shape": "h2",
+      "density": 0.004,
+      "anim": null
+     }
+    ],
+    "rim": "s0",
+    "edge": [
+     {
+      "color": "g1",
+      "width": 5.0,
+      "wobble": 3.0,
+      "density": 0.3,
+      "shape": "v2"
+     }
+    ],
+    "apron": [],
+    "cliff": null,
+    "shore": null,
+    "surf": null,
+    "flows": false,
+    "joins": [],
+    "decor": [],
+    "face": [
+     "s1",
+     "s0",
+     "s0"
+    ],
+    "lip": "s2"
+   }
+  }
+ ]
+}

@@ -1,0 +1,104 @@
+{
+ "note": "Palette for the map designer. Earth, plant, stone, water and sand ramps (w, g, s, b, k) are cool and low in saturation; warm saturated colours (r, y, o) are for small accents and fire. Ramps run dark to light. Tiles may only use names from this file.",
+ "colors": {
+  "n0": "#17161c",
+  "f0": "#e4dece",
+  "g0": "#222b28",
+  "g1": "#35443a",
+  "g2": "#55664a",
+  "g3": "#7b885a",
+  "g4": "#b0b27c",
+  "w0": "#2b2321",
+  "w1": "#4a3b33",
+  "w2": "#6d5747",
+  "w3": "#94795e",
+  "w4": "#c0a37f",
+  "s0": "#24252d",
+  "s1": "#3f414c",
+  "s2": "#62656e",
+  "s3": "#8c8f94",
+  "s4": "#c2c3bf",
+  "b0": "#16262c",
+  "b1": "#253f48",
+  "b2": "#42636a",
+  "b3": "#89a4a0",
+  "r0": "#5a1f29",
+  "r1": "#a5432f",
+  "r2": "#d86e39",
+  "y1": "#e8a13b",
+  "y2": "#f5d87a",
+  "p1": "#6c59a1",
+  "p2": "#b9a8e6",
+  "k0": "#5f574f",
+  "k1": "#8c8174",
+  "k2": "#c3b9a4",
+  "body": "#ff00ff",
+  "body_s": "#c000c0",
+  "acc": "#00ffff",
+  "acc_s": "#00b0b0",
+  "pk1": "#8f5a6c",
+  "pk2": "#c98fa0",
+  "p0": "#3b3157",
+  "o1": "#e0823a",
+  "o0": "#a9552a",
+  "gy1": "#696969",
+  "gy0": "#474747",
+  "t0": "#8b9797",
+  "t1": "#aab4b0",
+  "t2": "#d3d8cf"
+ },
+ "ramps": {
+  "leaf": [
+   "g0",
+   "g1",
+   "g2",
+   "g3"
+  ],
+  "grass": [
+   "g1",
+   "g2",
+   "g3",
+   "g4"
+  ],
+  "wood": [
+   "w0",
+   "w1",
+   "w2",
+   "w3"
+  ],
+  "stone": [
+   "s0",
+   "s1",
+   "s2",
+   "s3"
+  ],
+  "water": [
+   "b0",
+   "b1",
+   "b2",
+   "b3"
+  ],
+  "fire": [
+   "r1",
+   "r2",
+   "y1",
+   "y2"
+  ],
+  "sand": [
+   "k0",
+   "k1",
+   "k2",
+   "f0"
+  ],
+  "pale": [
+   "t0",
+   "t1",
+   "t2"
+  ],
+  "violet": [
+   "p0",
+   "p1",
+   "p2"
+  ]
+ }
+}
