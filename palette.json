@@ -1,5 +1,5 @@
 {
- "note": "Palette for the map designer. Earth, plant, stone, water and sand ramps (w, g, s, b, k) are cool and low in saturation; warm saturated colours (r, y, o) are for small accents and fire. Ramps run dark to light. Tiles may only use names from this file.",
+ "note": "Palette for the map designer. Earth, plant, stone, water and sand ramps (w, g, s, b, k) are cool and low in saturation; warm saturated colours (r, y, o) are for small accents and fire. Ramps run dark to light. Tiles may only use names from this file. l is foliage: cooler and deeper than the grass (g), so a crown stands off the ground it shades.",
  "colors": {
   "n0": "#17161c",
   "f0": "#e4dece",
@@ -45,7 +45,13 @@
   "gy0": "#474747",
   "t0": "#8b9797",
   "t1": "#aab4b0",
-  "t2": "#d3d8cf"
+  "t2": "#d3d8cf",
+  "l0": "#18232a",
+  "l1": "#22383a",
+  "l2": "#2f4f47",
+  "l3": "#456b55",
+  "l4": "#6a8f6c",
+  "l5": "#93b58c"
  },
  "ramps": {
   "leaf": [
@@ -99,6 +105,14 @@
    "p0",
    "p1",
    "p2"
+  ],
+  "foliage": [
+   "l0",
+   "l1",
+   "l2",
+   "l3",
+   "l4",
+   "l5"
   ]
  }
 }

@@ -14,7 +14,7 @@ import random
 import sys
 
 import mapkit
-import trees
+import treegrow
 from mapkit import MapError, Project, ROOT, image_art, pk
 
 BANK = {"colors": ["w2", "w1", "w0"], "over": ["water"]}  # a lip of earth where turf meets water
@@ -30,7 +30,11 @@ GROUNDS = [
                    {"color": "b2", "shape": "h3", "density": 0.05, "anim": "flow"},
                    {"color": "b3", "shape": "h2", "density": 0.012, "anim": "flow"}],
         "shore": {"colors": ["b2", "b2", "b2", "b2", "b2", "b2"]},
-        "surf": {"foam": "f0", "water": "b2", "reach": 8, "onto": ["sand", "gravel", "mud", "platform", "shingle"]}}),
+        "surf": {"foam": "f0", "water": "b2", "reach": 8, "onto": ["sand", "gravel", "mud", "platform", "shingle"]},
+        # the swell: long crests parallel to the coast, coming in to break as the surf
+        "water": [{"move": "surface", "color": "b2", "glint": "b3", "spacing": 22, "density": 0.045},
+                  {"move": "swell", "color": "b2", "glint": "b3", "spacing": 16},
+                  {"move": "ruffle", "color": "b0", "glint": "b3"}]}),
     # Ordinary water - the kind that dries. Dark and clear; ripples slide, the edge laps.
     ("water", "水", "swim", ["water"], {
         "base": "b1",
@@ -43,6 +47,9 @@ GROUNDS = [
         # river mouth is not a shore. A pond, which reaches nothing, lies still.
         "flows": True, "joins": ["sea"],
         "face": ["f0", "b3", "f0", "b3", "b2"], "lip": "b3",   # where it falls over a step: white water
+        # the wind ruffles it in the gusts, and now and then a fish rises
+        "water": [{"move": "surface", "color": "b2", "glint": "b3", "spacing": 14, "density": 0.04},
+                  {"move": "ruffle", "color": "b0", "glint": "b3"}, {"move": "rings", "color": "b2", "glint": "b3", "density": 0.0004}],
         "decor": [{"tile": "lily", "density": 0.03}]}),
     # A lagoon: sea water shut in behind a spit. Calm, shallow, paler where it shoals; it laps
     # and does not break.
@@ -50,19 +57,26 @@ GROUNDS = [
         "base": "b1",
         "patches": [{"color": "b2", "scale": 40, "amount": 0.35, "fill": 0.45}, {"color": "b0", "scale": 30, "amount": 0.15, "fill": 0.4}],
         "specks": [{"color": "b2", "shape": "h3", "density": 0.008, "anim": "drift"}, {"color": "b3", "shape": "dot", "density": 0.002, "anim": "twinkle"}],
-        "shore": {"colors": ["b3", "b2", "b2"], "lap": True}}),
+        "shore": {"colors": ["b3", "b2", "b2"], "lap": True},
+        "water": [{"move": "surface", "color": "b2", "glint": "b3", "spacing": 18, "density": 0.035},
+                  {"move": "ruffle", "color": "b0", "glint": "b3"}]}),
     # A tide pool in the rock shelf: clear, still, a pale rim of rock.
     ("pool", "潮池", "swim", ["water", "pool"], {
         "base": "b2",
         "patches": [{"color": "b1", "scale": 6, "amount": 0.45, "fill": 0.5}],
         "specks": [{"color": "b3", "shape": "dot", "density": 0.01, "anim": "twinkle"}, {"color": "f0", "shape": "dot", "density": 0.002, "anim": "twinkle"}],
-        "shore": {"colors": ["s3", "b3"]}}),
+        "shore": {"colors": ["s3", "b3"]},
+        "water": [{"move": "surface", "color": "b3", "glint": "f0", "spacing": 10, "density": 0.03},
+                  {"move": "rings", "color": "b3", "glint": "f0", "density": 0.004}]}),   # spray dripping in
     # A pool in the bog: peat-black water, a glint of sky, a soft brown edge.
     ("bogpool", "沼池", "swim", ["water", "peat"], {
         "base": "b0",
         "patches": [{"color": "n0", "scale": 8, "amount": 0.4, "fill": 0.5}],
         "specks": [{"color": "b2", "shape": "h2", "density": 0.006, "anim": "twinkle"}, {"color": "b3", "shape": "dot", "density": 0.002, "anim": "twinkle"}],
-        "shore": {"colors": ["w0", "w1"]}}),
+        "shore": {"colors": ["w0", "w1"]},
+        # gas from the peat: a bubble breaks and a ring spreads on the black water
+        "water": [{"move": "surface", "color": "b1", "glint": "b2", "spacing": 16, "density": 0.025},
+                  {"move": "rings", "color": "b2", "glint": "b3", "density": 0.002}]}),
     # A ford: the river runs shallow over stones and can be waded. Where a river would otherwise
     # cut a map in two, the generator puts one at the narrowest, stoniest crossing.
     ("ford", "浅滩", "walk", ["water", "ford"], {
@@ -476,6 +490,8 @@ def recipe(P, spec):
 def seed_tiles(project: Project) -> int:
     P = project.palette()
     art = lambda img: image_art(img, P)  # noqa: E731
+    grown = lambda kind, s, size=1.0: treegrow.tree(P, kind, s, size=size)  # noqa: E731  (trees grown from a skeleton)
+    ages = (1.0, 0.84, 0.7, 0.92)   # one kind at different ages, so a wood is not all one height
     small = small_sprites(P)
     decor_names = {"tuft": "草丛", "flower": "野花", "fern": "蕨", "mushroom": "蘑菇", "pebble": "石子", "lily": "睡莲"}
     swaying = {"tuft", "flower", "fern"}  # they stand still until a gust comes through
@@ -484,7 +500,7 @@ def seed_tiles(project: Project) -> int:
                 "motion": "gust" if k in swaying else "none", "variants": [art(i) for i in v]} for k, v in small.items()]
     objects += [
         {"id": "tree", "name": "树", "pass": "block", "tags": ["resource", "wood"], "shadow": True, "flip": False,
-         "jitter": 3, "motion": "sway", "variants": [art(trees.oak(P, 0)), art(trees.oak(P, 1)), art(trees.pine(P, 0))]},
+         "jitter": 3, "motion": "sway", "variants": [art(grown("oak", 0)), art(grown("oak", 1)), art(grown("pine", 0))]},
         {"id": "berry_bush", "name": "浆果丛", "pass": "walk", "tags": ["resource", "berry"], "shadow": True,
          "flip": False, "jitter": 2, "motion": "sway", "variants": [art(bush(P))]},
         {"id": "rock", "name": "岩石", "pass": "walk", "tags": ["resource", "stone"], "shadow": True, "flip": False,
@@ -498,15 +514,17 @@ def seed_tiles(project: Project) -> int:
          "variants": [art(grid(P, *SPAWN, outline="n0"))]},
         # trees by kind, for the generator to put where each grows (geo._trees)
         {"id": "oak", "name": "橡树", "pass": "block", "tags": ["resource", "wood", "hardwood", "tree"], "shadow": True, "flip": False,
-         "jitter": 3, "motion": "sway", "variants": [art(trees.oak(P, 0)), art(trees.oak(P, 1)), art(trees.oak(P, 2))]},
+         "jitter": 3, "motion": "sway", "variants": [art(grown("oak", s, ages[s])) for s in range(4)]},
         {"id": "pine", "name": "松", "pass": "block", "tags": ["resource", "wood", "resin", "tree"], "shadow": True, "flip": False,
-         "jitter": 3, "motion": "sway", "variants": [art(trees.pine(P, 0)), art(trees.pine(P, 1))]},
+         "jitter": 3, "motion": "sway", "variants": [art(grown("pine", s, ages[s])) for s in range(3)] + [art(grown("pine_old", s, ages[s * 3])) for s in range(2)]},
         {"id": "birch", "name": "白桦", "pass": "block", "tags": ["resource", "wood", "bark", "tree"], "shadow": True, "flip": False,
-         "jitter": 3, "motion": "sway", "variants": [art(trees.birch(P, 0)), art(trees.birch(P, 1))]},
+         "jitter": 3, "motion": "sway", "variants": [art(grown("birch", s, ages[s])) for s in range(3)]},
         {"id": "alder", "name": "桤木", "pass": "block", "tags": ["resource", "wood", "tree", "wet"], "shadow": True, "flip": False,
-         "jitter": 3, "motion": "sway", "variants": [art(trees.alder(P, 0)), art(trees.alder(P, 1))]},
+         "jitter": 3, "motion": "sway", "variants": [art(grown("alder", s, ages[s])) for s in range(3)]},
         {"id": "windbent", "name": "风压树", "pass": "block", "tags": ["resource", "wood", "tree"], "shadow": True,
-         "jitter": 2, "motion": "sway", "variants": [art(trees.windbent(P, 0)), art(trees.windbent(P, 1))]},
+         "jitter": 2, "motion": "sway", "variants": [art(grown("windbent", s, ages[s])) for s in range(3)]},
+        {"id": "willow", "name": "柳", "pass": "block", "tags": ["resource", "wood", "withy", "tree", "wet"], "shadow": True,
+         "flip": False, "jitter": 3, "motion": "sway", "variants": [art(grown("willow", s, a)) for s, a in ((0, 1.0), (1, 0.84), (3, 0.72))]},
     ]
     for t in objects:
         project.save_tile({**t, "layer": "object"})

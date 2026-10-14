@@ -1256,9 +1256,9 @@ BIOMES = {
     "alpine_meadow": {"name": "高山草甸", "ground": "grass", "plants": [("shortgrass", 0.45), ("alpine", 0.4), ("flowergrass", 0.15)],
                       "trees": {}, "density": 0.0, "rocks": 0.012},
     "riverside":     {"name": "河岸", "ground": "grass", "plants": [("longgrass", 0.6), ("flowergrass_long", 0.2), ("rushes", 0.2)],
-                      "trees": {"alder": 1.0}, "density": 0.07},
+                      "trees": {"alder": 0.6, "willow": 0.4}, "density": 0.07},
     "swamp":         {"name": "沼泽", "ground": "grass", "plants": [("rushes", 0.5), ("longgrass", 0.3), ("reeds", 0.2)],
-                      "trees": {"alder": 0.7, "birch": 0.3}, "density": 0.05},
+                      "trees": {"alder": 0.5, "willow": 0.25, "birch": 0.25}, "density": 0.05},
     # those that follow from the ground
     "beach":         {"name": "海滩"}, "stony_shore": {"name": "石岸"}, "saltmarsh": {"name": "盐沼"},
     "peat_bog":      {"name": "泥炭沼"}, "stony_peaks": {"name": "裸岩"}, "snowy_slopes": {"name": "雪坡"},
@@ -1460,7 +1460,8 @@ def _trees(kind, at, plants, biome=None):
         kind_of[edge & (noise > 0.45)] = "birch"
         kind_of[(high > tl - 0.12) | hard | (soil < 0.35)] = "pine"
     kind_of[(high > tl - 0.04) | (wind > 0.55)] = np.where(kind_of[(high > tl - 0.04) | (wind > 0.55)] == "pine", "pine", "windbent")
-    kind_of[to_river <= 1 + k // 2] = "alder"
+    # by the water: alder, and willow where the bank is low and the noise says
+    kind_of[to_river <= 1 + k // 2] = np.where(noise[to_river <= 1 + k // 2] > 0.6, "willow", "alder")
     walk = ~np.isin(kind, [SEA, WATER, LAGOON, POOL, BOGPOOL, STACK]) & ~at["river"]
     blocked = ~walk
     objects = [[None] * W for _ in range(H)]
@@ -1513,9 +1514,9 @@ def _trees(kind, at, plants, biome=None):
             tid = "rock"
         if tid and place(y, x, tid):
             counts[tid] = counts.get(tid, 0) + 1
-    names = {"oak": "橡树", "pine": "松", "birch": "白桦", "alder": "桤木", "windbent": "风压树", "berry_bush": "浆果丛", "rock": "大石"}
+    names = {"oak": "橡树", "pine": "松", "birch": "白桦", "alder": "桤木", "willow": "柳", "windbent": "风压树", "berry_bush": "浆果丛", "rock": "大石"}
     line = "树与石：" + "，".join(f"{names[t]} {n}" for t, n in sorted(counts.items(), key=lambda kv: -kv[1])) + \
-           "。河边桤木，高处和硬岩上是松，林缘白桦，林线和迎海风处是风压树，避风低地是橡树；林缘有浆果丛。"
+           "。河边桤木和柳，高处和硬岩上是松，林缘白桦，林线和迎海风处是风压树，避风低地是橡树；林缘有浆果丛。"
     return objects, [line] if counts else []
 
 

@@ -22,6 +22,11 @@ step. Small motions repeat every CYCLE frames; two things take the whole loop:
   motion is `gust` leans. Between gusts the grass is still.
 - **Current.** Running water (`flows`) moves toward what it `joins`: a river's ripples
   travel down it to the sea, and go on a little way out from the mouth. Still water does not.
+- **Water's own motion.** Each kind of water moves the way it does (`water`): the sea's swell
+  comes in as long crests parallel to the shore and meets the surf; wind ruffles open water
+  in the same gusts that lay the grass flat; a bog pool sends up bubbles and a tide pool takes a
+  drip, each a ring that widens and is gone. A river's current is quickest mid-stream: its
+  ripples are thicker and run faster there, few and slow along the banks.
 - **Surf.** A ground with `surf` (the sea) sends waves at the land: a line of foam comes in,
   runs up the beach, slides back, and leaves the sand dark and wet until it dries. Each
   stretch of shore is at its own point in that, so the coast is never all in step.
@@ -41,6 +46,7 @@ Colours are palette indices until the very end: pixels stay hard and inside the 
 """
 from __future__ import annotations
 
+import math
 import re
 import zlib
 
@@ -57,6 +63,9 @@ CYCLE = 8        # small motions (sway, ripples, flicker) repeat this often; div
 FPS = 6
 MOTIONS = ("none", "sway", "flicker", "bob", "gust")
 SPECK_ANIMS = ("twinkle", "drift", "gust", "flow")
+WATER_MOVES = ("surface", "swell", "ruffle", "rings")
+SWELL_REACH = 4  # cells: how far out from the land the swell is drawn - no more than PAD, so
+                 # every pixel's crest is decided by land inside its window
 WIND = (1.0, 0.35)   # the way gusts travel
 GUST_SPAN = 230.0    # px from one gust to the next along the wind
 GUST_WIDTH = 0.2     # how much of that a gust covers
@@ -233,6 +242,10 @@ def clean_look(look, pal: dict, tiles: dict) -> dict:
         surf     {foam, water, reach, onto?: [tile ids]}  waves: foam comes in over this ground,
                  runs `reach` px up the grounds in `onto` (default: any higher) as `water` with
                  a `foam` front, slides back and leaves them wet
+        water    [{move, color, glint?, spacing?, density?}]  water's own motion: move "swell"
+                 (crests every `spacing` px coming in toward the land), "ruffle" (while a gust
+                 passes, the surface breaks into ripples; `glint` catches the light) or "rings"
+                 (bubbles or drips: a ring widens from a point and is gone; density per px)
         flows    true for running water: it has a current, toward the ground it `joins` (or, if
                  it reaches none, off the bottom or side of the map; a pond has none)
         joins    [tile ids]  grounds this one runs into without a border: where a river meets
@@ -264,7 +277,8 @@ def clean_look(look, pal: dict, tiles: dict) -> dict:
         return v
 
     out = {"base": color(look.get("base")), "patches": [], "specks": [], "rim": None, "edge": [], "apron": [],
-           "cliff": None, "shore": None, "surf": None, "flows": bool(look.get("flows")), "joins": [], "decor": []}
+           "cliff": None, "shore": None, "surf": None, "flows": bool(look.get("flows")), "joins": [], "decor": [],
+           "water": []}
     try:
         for p in items("patches", 4):
             out["patches"].append({"color": color(p["color"]), "scale": number(p.get("scale", 24), 4, 96, "patch.scale"),
@@ -320,6 +334,13 @@ def clean_look(look, pal: dict, tiles: dict) -> dict:
                     raise MapError(f"surf.onto 里的 {t!r} 不是地面图块")
             out["surf"] = {"foam": color(sf.get("foam")), "water": color(sf.get("water")),
                            "reach": int(number(sf.get("reach", 7), 2, 14, "surf.reach")), "onto": onto}
+        for wv in items("water", 4):
+            if wv.get("move") not in WATER_MOVES:
+                raise MapError(f"water.move 只能是 {' / '.join(WATER_MOVES)}")
+            out["water"].append({"move": wv["move"], "color": color(wv.get("color")),
+                                 "glint": color(wv["glint"]) if wv.get("glint") else None,
+                                 "spacing": int(number(wv.get("spacing", 12), 6, 24, "water.spacing")),
+                                 "density": number(wv.get("density", 0.002), 0, 0.05, "water.density")})
         for t in items("joins", 8):
             if tiles.get(t, {}).get("layer") != "ground":
                 raise MapError(f"joins 里的 {t!r} 不是地面图块")
@@ -540,7 +561,7 @@ def _ground(G, X, Y, grounds, P: Palette, VX=None, VY=None, RF=None, CL=None, PL
     idx[unknown] = P.missing
     rank = np.where(unknown, 0, M)  # the order of `grounds` is the order of ranks
     fixed = np.zeros((h, w), dtype=bool)  # rims, still shores and cliffs: nothing animated may cross them
-    specks, laps, gusts, surfs, streams = [], [], [], [], []
+    specks, laps, gusts, surfs, streams, waters = [], [], [], [], [], []
     # Grounds that run into each other (a river into the sea) are not each other's shore:
     # for every border effect below, a ground's kin count as neither higher nor lower.
     code = {t["id"]: i + 1 for i, t in enumerate(grounds)}
@@ -570,6 +591,10 @@ def _ground(G, X, Y, grounds, P: Palette, VX=None, VY=None, RF=None, CL=None, PL
             if p.get("fill", 1) < 1:
                 area &= _hash(X, Y, s + 43 * (i + 1)) < p["fill"]
             idx[area] = P[p["color"]]
+        bank = None   # running water: how far from the bank (0..1 for 0..8 px), where the current is quicker
+        if look.get("flows") and any(sp.get("anim") == "flow" for sp in look["specks"]):
+            b_ = _reach(~mine & ~kin[k], mine, 8)
+            bank = np.where(b_ == 0, 8, b_).astype(np.float32) / 8
         for i, sp in enumerate(look["specks"]):
             chance = _hash(X, Y, s + 101 * (i + 1)).astype(np.float32)
             seeds = (chance < sp["density"]) & mine
@@ -578,7 +603,9 @@ def _ground(G, X, Y, grounds, P: Palette, VX=None, VY=None, RF=None, CL=None, PL
                 continue
             if sp.get("anim") == "flow":
                 if look.get("flows"):
-                    sel = seeds          # running water: everywhere (it only drifts where it is still)
+                    # running water: everywhere (it only drifts where it is still), but the
+                    # current is quickest mid-stream - more ripples there, few by the banks
+                    sel = seeds & (chance < sp["density"] * (0.3 + 0.7 * bank))
                 elif VX is None:
                     continue             # other grounds: only where a current reaches them
                 else:
@@ -586,6 +613,7 @@ def _ground(G, X, Y, grounds, P: Palette, VX=None, VY=None, RF=None, CL=None, PL
                     sel = (chance < sp["density"] * strength) & mine & (strength > 0.15)
                 ys, xs = np.nonzero(sel)
                 streams.append({"mine": mine, "sp": sp, "ys": ys, "xs": xs,
+                                "fast": (0.55 + 0.75 * bank[ys, xs]) if look.get("flows") else np.ones(len(ys), dtype=np.float32),
                                 "ph": np.floor(_hash(X[ys, xs], Y[ys, xs], s + 211 * (i + 1)) * CYCLE).astype(np.int64),
                                 "vx": VX[ys, xs] if VX is not None else np.zeros(len(ys), dtype=np.float32),
                                 "vy": VY[ys, xs] if VY is not None else np.zeros(len(ys), dtype=np.float32)})
@@ -614,6 +642,8 @@ def _ground(G, X, Y, grounds, P: Palette, VX=None, VY=None, RF=None, CL=None, PL
                           "calm": calm,
                           "when": _noise(X, Y, 70, s + 900).astype(np.float32),
                           "chance": _hash(X, Y, s + 901).astype(np.float32)})
+        for wv in look.get("water", []):
+            waters.append(_water_motion(wv, k, mine, G, X, Y, M, grounds, joined, s, fixed, VX, VY, look.get("flows")))
         if look["shore"]:
             higher = (rank > k) & ~kin[k]
             if look["shore"].get("lap"):
@@ -868,10 +898,154 @@ def _ground(G, X, Y, grounds, P: Palette, VX=None, VY=None, RF=None, CL=None, PL
                               + 0.5 * _noise(X, Y, 90, 4711)[blades["y"], blades["x"]]).astype(np.float32)
 
     wind = None
-    if gusts:  # where each pixel is along the train of gusts; the noise makes their fronts ragged
+    if gusts or any(wm["move"] == "ruffle" for wm in waters):  # where each pixel is along the train of gusts; the noise makes their fronts ragged
         wind = ((X * WIND[0] + Y * WIND[1]) / GUST_SPAN + 0.5 * _noise(X, Y, 90, 4711)).astype(np.float32)
     return {"M": M, "cliff": cliff, "idx": idx, "fixed": fixed | cliff, "specks": specks, "laps": laps, "apron": apron,
-            "gusts": gusts, "wind": wind, "surfs": surfs, "streams": streams, "falls": falls, "blades": blades}
+            "gusts": gusts, "wind": wind, "surfs": surfs, "streams": streams, "falls": falls, "blades": blades,
+            "waters": waters}
+
+
+def _water_motion(wv: dict, k: int, mine, G, X, Y, M, grounds, joined, s: int, fixed, VX=None, VY=None,
+                  flows=False) -> dict:
+    """What one ground's own water motion needs that does not change from frame to frame."""
+    h, w = mine.shape
+    out = {"move": wv["move"], "wv": wv}
+    if wv["move"] == "surface":
+        # The whole surface is covered in wavelets, the way grass is covered in blades: little
+        # flat marks, each catching the light and losing it again. Their moments are staggered
+        # along the way the water goes - downwind, or down a river's current - so bands of
+        # them travel across it.
+        free = mine & ~fixed
+        ys, xs = np.nonzero(free & (_hash(X, Y, s + 1501) < wv["density"]))
+        ux, uy = np.full(len(ys), WIND[0], dtype=np.float32), np.full(len(ys), WIND[1], dtype=np.float32)
+        if flows and VX is not None:
+            vx, vy = VX[ys, xs], VY[ys, xs]
+            sp_ = np.hypot(vx, vy)
+            run = sp_ > 0.2
+            ux, uy = np.where(run, vx / np.maximum(sp_, 1e-6), ux), np.where(run, vy / np.maximum(sp_, 1e-6), uy)
+        n = np.hypot(ux, uy)
+        ux, uy = ux / n, uy / n
+        wx, wy = X[ys, xs], Y[ys, xs]
+        phase = ((wx * ux + wy * uy) / wv["spacing"] + 0.6 * _noise(X, Y, 23, s + 1502)[ys, xs]
+                 + 0.25 * _hash(wx, wy, s + 1503)).astype(np.float32)
+        out.update({"ys": ys, "xs": xs, "ux": ux, "uy": uy, "phase": phase, "free": free,
+                    "lucky": _hash(wx, wy, s + 1504) < 0.25})
+    elif wv["move"] == "swell":
+        # How far each pixel is from the land, measured between cell centres and smoothed back
+        # to pixels: the crests follow the run of the coast, not every nook of it.
+        land = (G > k) & (G <= len(grounds)) & ~np.isin(G, list(joined[k]))
+        far = float(SWELL_REACH + 1)
+        dc = np.full(G.shape, far, dtype=np.float32)
+        r = SWELL_REACH
+        for dy in range(-r, r + 1):
+            for dx in range(-r, r + 1):
+                dd = math.hypot(dx, dy)
+                if dd <= r:
+                    dc = np.where(_shift(land, dx, dy, fill=False), np.minimum(dc, dd), dc)
+        fx, fy = (X - X[0, 0] + 0.5) / C - 0.5, (Y - Y[0, 0] + 0.5) / C - 0.5
+        x0, y0 = np.clip(np.floor(fx).astype(np.int64), 0, G.shape[1] - 1), np.clip(np.floor(fy).astype(np.int64), 0, G.shape[0] - 1)
+        x1, y1 = np.clip(x0 + 1, 0, G.shape[1] - 1), np.clip(y0 + 1, 0, G.shape[0] - 1)
+        ax, ay = np.clip(fx - x0, 0, 1), np.clip(fy - y0, 0, 1)
+        d = ((dc[y0, x0] * (1 - ax) + dc[y0, x1] * ax) * (1 - ay) + (dc[y1, x0] * (1 - ax) + dc[y1, x1] * ax) * ay) * C
+        # crests come in, but where they break into dashes does not move: only those pixels
+        # ever show one, so only they are looked at frame by frame
+        fade = np.clip((far * C - d) / (far * C * 0.5), 0, 1) * np.clip((d - 12) / 8, 0, 1)
+        brk = _noise(X, Y, 6, s + 1201)
+        ys, xs = np.nonzero(mine & ~fixed & (brk > 1 - 0.42 * fade))
+        out.update({"ys": ys, "xs": xs, "d": d[ys, xs].astype(np.float32),
+                    "glints": (brk[ys, xs] > 1 - 0.1 * fade[ys, xs])})
+    elif wv["move"] == "ruffle":
+        chance = _hash(X, Y, s + 1301)
+        ys, xs = np.nonzero(mine & ~fixed & ((chance < 0.06) | (chance > 1 - 0.012)))
+        out.update({"ys": ys, "xs": xs, "chance": chance[ys, xs].astype(np.float32), "free": mine & ~fixed})
+    else:  # rings: a few points, away from the edge, each at its own moment in the loop
+        inner = mine & ~fixed
+        for _ in range(3):
+            inner &= ~_grow(~inner)
+        ys, xs = np.nonzero(inner & (_hash(X, Y, s + 1401) < wv["density"]))
+        out.update({"ys": ys, "xs": xs, "free": mine & ~fixed,
+                    "t0": np.floor(_hash(X[ys, xs], Y[ys, xs], s + 1402) * FRAMES).astype(np.int64)})
+    return out
+
+
+# a ring a few px across, wider than tall (the ground is seen from above and a little south)
+_RINGS = [[(0, 0)]] + [[(dx, dy) for dy in range(-r, r + 1) for dx in range(-r - 1, r + 2)
+                        if round(math.hypot(dx / 1.25, dy / 0.8)) == r] for r in (1, 2, 3)]
+
+
+def _water(idx, wm: dict, g: dict, frame: int, P: Palette) -> None:
+    """One moment of a ground's own water motion."""
+    wv = wm["wv"]
+    h, w = idx.shape
+    if wm["move"] == "surface":
+        # each wavelet: a dot, a short dash, longer and drifting on a pixel, gone for a while;
+        # two rounds a loop. A gust lengthens it and puts a glint in it.
+        t = (wm["phase"] - frame * 2 / FRAMES) % 1.0
+        blow = None
+        if g.get("wind") is not None:
+            if g.get("_blow", (None,))[0] != frame:
+                g["_blow"] = (frame, gust_at(g["wind"], frame).astype(np.float32))
+            blow = g["_blow"][1][wm["ys"], wm["xs"]]
+        size = np.where(t < 0.12, 1, np.where(t < 0.3, 2, np.where(t < 0.48, 3, np.where(t < 0.6, 2, 0))))
+        if blow is not None:
+            size = np.where(size > 0, size + (blow > 0.35), 0)
+        drift = np.where(t < 0.3, 0, 1)
+        x0 = wm["xs"] + np.rint(wm["ux"] * drift).astype(np.int64) - size // 2
+        y0 = wm["ys"] + np.rint(wm["uy"] * drift).astype(np.int64)
+        col = P[wv["color"]]
+        for i in range(4):
+            on = size > i
+            x, y = x0[on] + i, y0[on]
+            ok = (x >= 0) & (x < w) & (y >= 0) & (y < h)
+            x, y = x[ok], y[ok]
+            hit = wm["free"][y, x]
+            idx[y[hit], x[hit]] = col
+        if wv["glint"]:
+            gl = (size >= 3) & ((t > 0.3) & (t < 0.48))
+            if blow is not None:
+                gl &= (blow > 0.2) | wm["lucky"]          # between gusts only a few catch the sun
+            x, y = wm["xs"][gl], wm["ys"][gl]
+            hit = wm["free"][y, x]
+            idx[y[hit], x[hit]] = P[wv["glint"]]
+    elif wm["move"] == "swell":
+        # crests every `spacing` px, moving in by one spacing a loop; broken into dashes, fading
+        # out to sea, and left to the surf near the land
+        sp = wv["spacing"]
+        on = np.floor(wm["d"] + frame * sp / FRAMES) % sp == 0
+        idx[wm["ys"][on], wm["xs"][on]] = P[wv["color"]]
+        if wv["glint"]:
+            g_ = on & wm["glints"]
+            idx[wm["ys"][g_], wm["xs"][g_]] = P[wv["glint"]]
+    elif wm["move"] == "ruffle":
+        if g["wind"] is None:
+            return
+        if g.get("_blow", (None,))[0] != frame:            # one wind for every water in the window
+            g["_blow"] = (frame, gust_at(g["wind"], frame).astype(np.float32))
+        ys, xs = wm["ys"], wm["xs"]
+        blow = g["_blow"][1][ys, xs]
+        sel = wm["chance"] < 0.06 * blow
+        for ox, oy in SHAPES["h2"]:
+            y, x = ys[sel] + oy, xs[sel] + ox
+            ok = (x < w) & (y < h)
+            y, x = y[ok], x[ok]
+            hit = wm["free"][y, x]
+            idx[y[hit], x[hit]] = P[wv["color"]]
+        if wv["glint"]:
+            gl = wm["chance"] > 1 - 0.012 * blow
+            idx[ys[gl], xs[gl]] = P[wv["glint"]]
+    else:
+        free = wm["free"]
+        age = (frame - wm["t0"]) % FRAMES
+        for r, ring in enumerate(_RINGS):
+            now = age // 2 == r                            # a dot, then each ring, two frames each
+            ys, xs = wm["ys"][now], wm["xs"][now]
+            colour = P[wv["glint"] or wv["color"]] if r == 0 else P[wv["color"]]
+            for dx, dy in ring:
+                y, x = ys + dy, xs + dx
+                ok = (y >= 0) & (y < h) & (x >= 0) & (x < w)
+                y, x = y[ok], x[ok]
+                hit = free[y, x]
+                idx[y[hit], x[hit]] = colour
 
 
 def gust_at(u, frame: int):
@@ -977,7 +1151,7 @@ def _ground_frame(g: dict, frame: int, P: Palette):
         still = speed < 0.2
         ux = np.where(still, 1.0, st["vx"] / np.maximum(speed, 1e-6))
         uy = np.where(still, 0.0, st["vy"] / np.maximum(speed, 1e-6))
-        far = step * np.where(still, 0.5, 1.6)
+        far = step * np.where(still, 0.5, 1.6 * st["fast"])
         x0, y0 = st["xs"] + np.rint(ux * far).astype(np.int64), st["ys"] + np.rint(uy * far).astype(np.int64)
         along_x = np.abs(ux) >= np.abs(uy)  # a streak lies along the way it travels
         for i in range(len(SHAPES[st["sp"]["shape"]])):
@@ -987,11 +1161,15 @@ def _ground_frame(g: dict, frame: int, P: Palette):
             hit = free[y, x]
             idx[y[hit], x[hit]] = P[st["sp"]["color"]]
     if g["gusts"]:
-        blow = gust_at(g["wind"], frame)
+        if g.get("_blow", (None,))[0] != frame:
+            g["_blow"] = (frame, gust_at(g["wind"], frame).astype(np.float32))
+        blow = g["_blow"][1]
         for mine, sp, chance in g["gusts"]:
             sel = (chance < sp["density"] * blow) & mine & ~g["fixed"]
             for ox, oy in SHAPES[sp["shape"]]:
                 idx[_shift(sel, ox, oy) & mine & ~g["fixed"]] = P[sp["color"]]
+    for wm in g.get("waters", []):
+        _water(idx, wm, g, frame, P)
     if g.get("falls"):
         _falls(idx, g["falls"], frame)
     if g.get("blades") is not None:

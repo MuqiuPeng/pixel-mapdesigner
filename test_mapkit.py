@@ -315,7 +315,7 @@ class Picture(Base):
         changed = [(x, y) for x in range(96) for y in range(96) if bare.getpixel((x, y)) != img.getpixel((x, y))]
         ys = [y for _, y in changed]
         self.assertLess(min(ys), 3 * 16)       # the canopy reaches at least a cell above its own
-        self.assertLess(max(ys), 5 * 16 + 13)  # below its feet only its shadow, falling away from the sun
+        self.assertLess(max(ys), 6 * 16)  # below its feet only its shadow (within a cell), falling away from the sun
         self.assertEqual(mapkit.render(m, self.tiles, self.pal, scale=1, objects=False).tobytes(), bare.tobytes())
 
     def test_look_sample_and_preview(self):
@@ -608,7 +608,7 @@ class Disk(Base):
         with self.assertRaises(MapError):
             self.p.create_map("huge", 999, 4)
         out = self.p.export()
-        self.assertEqual((out["objects"], out["problems"], len(out["maps"])), (17, [], 1))   # with the five kinds of tree
+        self.assertEqual((out["objects"], out["problems"], len(out["maps"])), (18, [], 1))   # with the six kinds of tree
         index_plants = json.loads(Path(out["json"]).read_text(encoding="utf-8"))["plants"]
         self.assertTrue({"shortgrass", "longgrass", "flowergrass", "heather", "reeds", "lichen", "marram"} <= set(index_plants))
         self.assertIn("grow", index_plants["longgrass"])
