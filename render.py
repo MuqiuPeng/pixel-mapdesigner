@@ -81,11 +81,30 @@ def _seed(text) -> int:
     return zlib.crc32(str(text).encode("utf-8")) & 0xFFFF
 
 
+_XY = [None, None, None, None]   # the window's pixel grids, and the same as uint32: hashes of them are kept while it is drawn
+_HASHED = {}
+
+
 def _hash(ix, iy, seed: int):
-    """0..1 from integer coordinates; works on numbers and on arrays alike."""
-    h = (ix * 374761393 + iy * 668265263 + seed * 974711) & 0xFFFFFFFF
-    h = ((h ^ (h >> 13)) * 1274126177) & 0xFFFFFFFF
-    return ((h ^ (h >> 16)) & 0xFFFFFF) / 16777216.0
+    """0..1 from integer coordinates; works on numbers and on arrays alike. Done in 32-bit
+    unsigned arithmetic, which wraps exactly as the masks it replaces did; over the window's
+    whole pixel grid the result is kept, since many looks ask for the same one."""
+    whole = ix is _XY[0] and iy is _XY[1] and ix is not None
+    if whole and seed in _HASHED:
+        return _HASHED[seed]
+    ux = _XY[2] if whole else np.asarray(ix).astype(np.uint32)
+    uy = _XY[3] if whole else np.asarray(iy).astype(np.uint32)
+    with np.errstate(over="ignore"):
+        h = (ux * np.uint32(374761393) + uy * np.uint32(668265263)
+             + np.uint32((seed * 974711) & 0xFFFFFFFF))
+        h = (h ^ (h >> np.uint32(13))) * np.uint32(1274126177)
+    # 24 bits over 2^24: exact in float32, at half the memory float64 would take
+    out = ((h ^ (h >> np.uint32(16))) & np.uint32(0xFFFFFF)).astype(np.float32) * np.float32(1 / 16777216)
+    if np.ndim(out) == 0:
+        return float(out)          # a number in, a plain number out (it may end up in JSON)
+    if whole:
+        _HASHED[seed] = out
+    return out
 
 
 def _noise(X, Y, wavelength: float, seed: int):
@@ -97,9 +116,9 @@ def _noise(X, Y, wavelength: float, seed: int):
     tx, ty = (tx * tx * (3 - 2 * tx))[None, :], (ty * ty * (3 - 2 * ty))[:, None]
     lat = _hash(np.arange(ix[0], ix[-1] + 2)[None, :], np.arange(iy[0], iy[-1] + 2)[:, None], seed).astype(np.float32)
     jx, jy = ix - ix[0], iy - iy[0]
-    top = lat[np.ix_(jy, jx)] * (1 - tx) + lat[np.ix_(jy, jx + 1)] * tx
-    bot = lat[np.ix_(jy + 1, jx)] * (1 - tx) + lat[np.ix_(jy + 1, jx + 1)] * tx
-    return top * (1 - ty) + bot * ty
+    # across first, on the lattice's own few rows; then down, once per pixel row
+    rows = lat[:, jx] * (1 - tx) + lat[:, jx + 1] * tx
+    return rows[jy] * (1 - ty) + rows[jy + 1] * ty
 
 
 def _shift(a, dx: int, dy: int, fill=0):
@@ -1149,8 +1168,10 @@ def _window(m, tiles, pal, region):
         for i in range(gw):
             t = row[min(max(gx0 + i, 0), m.width - 1)]
             G[j, i] = code.get(t, len(grounds) + 1) if t else 0
-    X, Y = np.meshgrid(np.arange(gx0 * C, (gx0 + gw) * C, dtype=np.int64),
-                       np.arange(gy0 * C, (gy0 + gh) * C, dtype=np.int64))
+    X, Y = np.meshgrid(np.arange(gx0 * C, (gx0 + gw) * C, dtype=np.int32),
+                       np.arange(gy0 * C, (gy0 + gh) * C, dtype=np.int32))
+    _XY[:] = [X, Y, X.astype(np.uint32), Y.astype(np.uint32)]
+    _HASHED.clear()
     VX = VY = None
     flow = _whole("currents", m, tiles, currents)
     if flow is not None:

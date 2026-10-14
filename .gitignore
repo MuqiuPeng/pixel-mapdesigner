@@ -4,3 +4,4 @@ export/
 data/maps/.trash/
 data/maps/*.lock
 dem/*.npy
+data/maps/.cache/

@@ -34,12 +34,52 @@ _PICTURES, _PICTURE_BYTES, _PICTURE_LIMIT = {}, [0], 600 * 2 ** 20
 _WORKER = {}
 
 
-def _draw(data_dir, name, which, scale, grid, region):
-    """A piece of the map as PNG bytes. Runs in a worker process."""
+def _draw(data_dir, name, which, scale, grid, region, revs=None):
+    """A piece of the map as PNG bytes. Runs in a worker process, which keeps the map, the tiles
+    and the palette it has read for as long as their revisions stay the same - so a whole map
+    drawn in pieces is read from disk once per worker, not once per piece."""
     import render as R
     P = _WORKER.get(data_dir) or _WORKER.setdefault(data_dir, Project(data_dir=Path(data_dir)))
-    imgs = R.render_frames(P.load_map(name), P.tiles(), P.palette(), which, scale=scale, grid=grid, region=region)
+    map_rev, tile_rev = revs or (None, None)
+    key = ("map", data_dir, name, map_rev)
+    if map_rev is None or key not in _WORKER:
+        for k in [k for k in _WORKER if isinstance(k, tuple) and k[:3] == ("map", data_dir, name)]:
+            del _WORKER[k]
+        _WORKER[key] = P.load_map(name)
+    tkey = ("tiles", data_dir, tile_rev)
+    if tile_rev is None or tkey not in _WORKER:
+        for k in [k for k in _WORKER if isinstance(k, tuple) and k[:2] == ("tiles", data_dir)]:
+            del _WORKER[k]
+        _WORKER[tkey] = (P.tiles(), P.palette())
+    tiles, pal = _WORKER[tkey]
+    imgs = R.render_frames(_WORKER[key], tiles, pal, which, scale=scale, grid=grid, region=region)
     return mapkit.png_bytes(R.strip(imgs))
+
+
+# The same pieces kept on disk (under the data folder's .cache), named by everything that decides
+# what they look like - the map's and the tiles' revisions and the drawing code itself - so a map
+# reopened after a restart comes back at once, and any change to any of those draws it afresh.
+_CODE = None
+
+
+def _code_mark():
+    global _CODE
+    if _CODE is None:
+        import hashlib
+        h = hashlib.sha1()
+        for f in ("render.py", "mapkit.py", "palette.json"):
+            path = Path(__file__).resolve().parent / f
+            if path.exists():
+                h.update(path.read_bytes())
+        h.update(Path(PROJECT.palette_path).read_bytes() if Path(PROJECT.palette_path).exists() else b"")
+        _CODE = h.hexdigest()[:12]
+    return _CODE
+
+
+def _cache_file(key):
+    import hashlib
+    name = hashlib.sha1(repr((_code_mark(),) + key).encode("utf-8")).hexdigest()
+    return Path(PROJECT.data) / ".cache" / name[:2] / f"{name}.png"
 
 
 def _picture(name, which, scale, grid, region):
@@ -47,8 +87,19 @@ def _picture(name, which, scale, grid, region):
     if key in _PICTURES:
         _PICTURES[key] = _PICTURES.pop(key)          # most recently used last
         return _PICTURES[key]
-    args = (str(PROJECT.data), name, list(which), scale, grid, region)
-    png = _POOL.submit(_draw, *args).result() if _POOL else _draw(*args)
+    disk = _cache_file(key)
+    if disk.exists():
+        png = disk.read_bytes()
+    else:
+        args = (str(PROJECT.data), name, list(which), scale, grid, region, (key[1], key[2]))
+        png = _POOL.submit(_draw, *args).result() if _POOL else _draw(*args)
+        try:
+            disk.parent.mkdir(parents=True, exist_ok=True)
+            tmp = disk.with_suffix(".tmp")
+            tmp.write_bytes(png)
+            tmp.replace(disk)
+        except OSError:
+            pass                                      # a cache that cannot be written is only slower
     _PICTURES[key] = png
     _PICTURE_BYTES[0] += len(png)
     while _PICTURE_BYTES[0] > _PICTURE_LIMIT and _PICTURES:
@@ -71,6 +122,10 @@ def _map_payload(name: str) -> dict:
 
 
 class Handler(BaseHTTPRequestHandler):
+    # One connection carries many requests (every response says how long it is), so the many
+    # pieces of a map do not each wait for a new connection.
+    protocol_version = "HTTP/1.1"
+
     server_version = "mapdesigner"
 
     def log_message(self, fmt, *args):  # only failures are worth a line
@@ -255,9 +310,21 @@ def main():
         seed.main()
     global _POOL
     from concurrent.futures import ProcessPoolExecutor
-    _POOL = ProcessPoolExecutor(max_workers=max(1, min(8, (os.cpu_count() or 2) - 2)))
+    _POOL = ProcessPoolExecutor(max_workers=max(1, min(12, (os.cpu_count() or 2) - 2)))
     httpd = ThreadingHTTPServer(("127.0.0.1", args.port), Handler)
-    print(f"地图设计器: http://127.0.0.1:{args.port}/   数据: {PROJECT.data}", flush=True)
+    # "localhost" may be tried as IPv6 first (Windows does): answer there too, still only on this machine
+    try:
+        import socket
+        import threading
+
+        class Server6(ThreadingHTTPServer):
+            address_family = socket.AF_INET6
+
+        httpd6 = Server6(("::1", args.port), Handler)
+        threading.Thread(target=httpd6.serve_forever, daemon=True).start()
+    except OSError:
+        pass
+    print(f"地图设计器: http://localhost:{args.port}/   数据: {PROJECT.data}", flush=True)
     try:
         httpd.serve_forever()
     except KeyboardInterrupt:

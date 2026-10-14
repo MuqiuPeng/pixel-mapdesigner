@@ -164,6 +164,32 @@ async function picture(m, x0, y0, x1, y1, all) {
   return createImageBitmap(await r.blob());
 }
 
+// The whole view's own picture, at the size it is shown (cell px per cell). Pieces are scaled
+// into it once as they come, so a repaint is one small copy, not a shrink of the whole map.
+function small() {
+  const m = S.map;
+  if (!m || S.view !== 'whole') return null;
+  const w = Math.max(1, Math.round(m.w * S.cell)), h = Math.max(1, Math.round(m.h * S.cell));
+  if (!S.small || S.small.width !== w || S.small.height !== h || S.small.map !== m) {
+    S.small = document.createElement('canvas');
+    S.small.width = w; S.small.height = h; S.small.map = m;
+    const g = S.small.getContext('2d');
+    g.imageSmoothingEnabled = true;
+    g.drawImage(S.still, 0, 0, w, h);      // what has come so far, once
+  }
+  return S.small;
+}
+
+function toSmall(x0, y0, img, cw, ch, whole = false) {   // whole: img is the full still picture
+  const sm = small();
+  if (!sm) return;
+  const g = sm.getContext('2d'), k = sm.width / S.map.w;
+  g.imageSmoothingEnabled = true;
+  const X0 = Math.floor(x0 * k), Y0 = Math.floor(y0 * k), X1 = Math.ceil((x0 + cw) * k), Y1 = Math.ceil((y0 + ch) * k);
+  const sx = X0 * T / k - (whole ? 0 : x0 * T), sy = Y0 * T / k - (whole ? 0 : y0 * T);
+  g.drawImage(img, sx, sy, (X1 - X0) * T / k, (Y1 - Y0) * T / k, X0, Y0, X1 - X0, Y1 - Y0);
+}
+
 // After an edit: that part of the still picture again, and its moving pieces are out of date.
 async function refresh(m, x, y, w, h) {
   const x0 = Math.max(0, x), y0 = Math.max(0, y), x1 = Math.min(m.w, x + w), y1 = Math.min(m.h, y + h);
@@ -173,6 +199,7 @@ async function refresh(m, x, y, w, h) {
   const g = S.still.getContext('2d');
   g.clearRect(x0 * T, y0 * T, bmp.width, bmp.height);
   g.drawImage(bmp, x0 * T, y0 * T);
+  if (S.small && S.small.map === m) S.small = null;    // rebuilt from the still picture at the next paint
   for (const k of [...S.anim.keys()]) {
     const [cx, cy] = k.split(',').map(Number);
     if (cx < x1 && cx + CHUNK > x0 && cy < y1 && cy + CHUNK > y0) S.anim.delete(k);
@@ -206,7 +233,7 @@ function want() {
 
 function pump() {
   const m = S.map;
-  while (loading.size < 8 && wanted.length) {   // the server draws this many at once, in its own processes
+  while (loading.size < 12 && wanted.length) {  // the server draws up to this many at once, in its own processes
     const j = wanted.shift(), id = j.k + (j.all ? '*' : '');
     if (loading.has(id)) continue;
     loading.add(id);
@@ -226,6 +253,7 @@ function pump() {
         const g = S.still.getContext('2d');
         g.clearRect(j.x * T, j.y * T, bmp.width, bmp.height);
         g.drawImage(bmp, j.x * T, j.y * T);
+        toSmall(j.x, j.y, bmp, bmp.width / T, bmp.height / T);
         S.have.add(j.k);
         bmp.close();
       }
@@ -339,7 +367,10 @@ function paint() {
   // only the part of the picture in the window
   const vx0 = Math.max(0, Math.floor(-ox / c)), vy0 = Math.max(0, Math.floor(-oy / c));
   const vx1 = Math.min(m.w, Math.ceil((W - ox) / c)), vy1 = Math.min(m.h, Math.ceil((H - oy) / c));
-  if (vx1 > vx0 && vy1 > vy0) {
+  const sm = S.view === 'whole' ? small() : null;
+  if (sm) {
+    g.drawImage(sm, ox, oy);           // already the size it is shown
+  } else if (vx1 > vx0 && vy1 > vy0) {
     g.imageSmoothingEnabled = c < T;   // the whole map shrunk: smooth; at whole multiples: crisp pixels
     g.drawImage(S.still, vx0 * T, vy0 * T, (vx1 - vx0) * T, (vy1 - vy0) * T, ox + vx0 * c, oy + vy0 * c, (vx1 - vx0) * c, (vy1 - vy0) * c);
     g.imageSmoothingEnabled = false;
@@ -459,7 +490,8 @@ function sketch(layer, x, y, id) {
     g.drawImage(img, x * T + T / 2 - Math.floor(img.width / 2), y * T + T - 2 - img.height + 1);
   }
   const k = Math.floor(x / CHUNK) * CHUNK + ',' + Math.floor(y / CHUNK) * CHUNK;
-  if (S.anim.has(k)) { S.anim.get(k).close(); S.anim.delete(k); }   // the still one shows the change until the new one comes
+  if (S.anim.has(k)) { S.anim.get(k).close(); S.anim.delete(k); }
+  if (S.small) toSmall(x, y, S.still, 1, 1, true);   // the still one shows the change until the new one comes
 }
 
 function put(layer, p, id) {
