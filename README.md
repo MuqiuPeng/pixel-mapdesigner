@@ -84,3 +84,7 @@ python dem/fetch.py
 | `server.py`, `web/` | 编辑器 |
 | `mcp_server.py` | MCP 接口 |
 | `palette.json` | 调色板；图块只能用这里的颜色 |
+
+## 许可证
+
+代码与示例地图以 MIT 许可证发布，见 `LICENSE`。可选下载的真实地形数据不在其内，遵循其上游各自的许可与署名要求。
